@@ -1316,17 +1316,17 @@
             </StackLayout>
         </ScrollView>
         
-        <!-- Role Selection Overlay -->
-        <views:RoleSelectionOverlay x:Name="RoleSelectionOverlay" 
-                                    Grid.Row="0" 
-                                    Grid.RowSpan="4" 
-                                    IsVisible="False" />
-        
         <!-- Edit User Overlay -->
         <views:EditUserOverlay x:Name="EditUserOverlay" 
                                Grid.Row="0" 
                                Grid.RowSpan="4" 
                                IsVisible="False" />
+        
+        <!-- Role Selection Overlay - Must be last to appear on top -->
+        <views:RoleSelectionOverlay x:Name="RoleSelectionOverlay" 
+                                    Grid.Row="0" 
+                                    Grid.RowSpan="4" 
+                                    IsVisible="False" />
         
     </Grid>
 </ContentPage>
