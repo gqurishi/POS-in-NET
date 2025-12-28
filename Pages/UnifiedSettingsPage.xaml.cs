@@ -875,18 +875,15 @@ namespace POS_in_NET.Pages
                 
                 if (sender is Button button && button.CommandParameter != null)
                 {
-                    int userId = Convert.ToInt32(button.CommandParameter);
-                    
-                    // Find the user to edit
-                    var userToEdit = _users.FirstOrDefault(u => u.Id == userId);
-                    if (userToEdit != null)
+                    // The CommandParameter is bound to the entire User object
+                    if (button.CommandParameter is User userToEdit)
                     {
                         System.Diagnostics.Debug.WriteLine($"Opening edit dialog for user: {userToEdit.Name}");
                         EditUserOverlay.ShowOverlay(userToEdit);
                     }
                     else
                     {
-                        DisplayAlert("Error", "User not found", "OK");
+                        DisplayAlert("Error", "Invalid user data", "OK");
                     }
                 }
                 else
@@ -909,31 +906,33 @@ namespace POS_in_NET.Pages
                 
                 if (sender is Button button && button.CommandParameter != null)
                 {
-                    int userId = Convert.ToInt32(button.CommandParameter);
-                    
-                    // Find the user to get their name for confirmation
-                    var userToDelete = _users.FirstOrDefault(u => u.Id == userId);
-                    var userName = userToDelete?.Name ?? $"User {userId}";
-                    
-                    bool confirm = await DisplayAlert("Confirm Delete", 
-                        $"Are you sure you want to delete '{userName}'?\n\nThis action cannot be undone.", 
-                        "Delete", "Cancel");
-                    
-                    if (confirm)
+                    // The CommandParameter is bound to the entire User object
+                    if (button.CommandParameter is User userToDelete)
                     {
-                        // Delete user using AuthenticationService
-                        var result = await _authService.DeleteUserAsync(userId);
+                        bool confirm = await DisplayAlert("Confirm Delete", 
+                            $"Are you sure you want to delete '{userToDelete.Name}'?\n\nThis action cannot be undone.", 
+                            "Delete", "Cancel");
                         
-                        if (result.Success)
+                        if (confirm)
                         {
-                            await DisplayAlert("Success", $"User '{userName}' has been deleted successfully.", "OK");
-                            // Reload users
-                            await LoadUsersAsync();
+                            // Delete user using AuthenticationService
+                            var result = await _authService.DeleteUserAsync(userToDelete.Id);
+                            
+                            if (result.Success)
+                            {
+                                await DisplayAlert("Success", $"User '{userToDelete.Name}' has been deleted successfully.", "OK");
+                                // Reload users
+                                await LoadUsersAsync();
+                            }
+                            else
+                            {
+                                await DisplayAlert("Error", result.Message, "OK");
+                            }
                         }
-                        else
-                        {
-                            await DisplayAlert("Error", result.Message, "OK");
-                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Invalid user data", "OK");
                     }
                 }
                 else
