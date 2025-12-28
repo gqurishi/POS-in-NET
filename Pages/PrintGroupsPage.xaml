@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Pages.PrintGroupsPage"
+             Title="Print Groups">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Padding="20" BackgroundColor="#F8F9FA">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Print Groups" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   Grid.Column="0"/>
+
+            <Button Text="+ Add Print Group"
+                    BackgroundColor="#10B981"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="20,10"
+                    Clicked="OnAddPrintGroupClicked"
+                    Grid.Column="1"/>
+        </Grid>
+
+        <!-- Print Groups List -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="PrintGroupsList" Padding="20" Spacing="15"/>
+        </ScrollView>
+    </Grid>
+</ContentPage>

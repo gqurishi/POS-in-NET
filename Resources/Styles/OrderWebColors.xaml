@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- 
+    ═══════════════════════════════════════════════════════════
+    OrderWeb.net Design System - Color Palette
+    ═══════════════════════════════════════════════════════════
+    
+    Light Theme Colors
+    Converted from HSL to HEX for MAUI compatibility
+    
+    Based on: https://orderweb.net design system
+    Last Updated: October 12, 2025
+    ═══════════════════════════════════════════════════════════
+    -->
+
+    <!-- PRIMARY COLORS -->
+    <Color x:Key="Primary">#4A90E2</Color>
+    <!-- HSL: 224° 82% 57% - Medium Blue - Main brand color -->
+    
+    <Color x:Key="PrimaryContainer">#E3F2FD</Color>
+    <!-- HSL: 210° 100% 97% - Light Blue - Container for primary icons/elements -->
+    
+    <Color x:Key="PrimaryForeground">#F7FAFC</Color>
+    <!-- HSL: 210° 40% 98% - Almost White - Text on primary -->
+    
+    <Color x:Key="Background">#F7FAFC</Color>
+    <!-- HSL: 210° 40% 98% - Light Blue-Gray - Main background -->
+    
+    <Color x:Key="Foreground">#020817</Color>
+    <!-- HSL: 222° 84% 5% - Almost Black - Main text color -->
+
+    <!-- SECONDARY COLORS -->
+    <Color x:Key="Secondary">#E3F2FD</Color>
+    <!-- HSL: 210° 100% 97% - Light Blue - Pending status, secondary elements -->
+    
+    <Color x:Key="SecondaryContainer">#F3E5F5</Color>
+    <!-- HSL: 291° 47% 93% - Light Purple - Container for secondary icons/elements -->
+    
+    <Color x:Key="SecondaryForeground">#0D47A1</Color>
+    <!-- HSL: 210° 90% 45% - Dark Blue - Text on secondary -->
+
+    <!-- STATUS COLORS -->
+    <Color x:Key="Success">#E8F5E9</Color>
+    <!-- HSL: 140° 80% 96% - Light Green - Success messages, delivered status -->
+    
+    <Color x:Key="SuccessForeground">#1B5E20</Color>
+    <!-- HSL: 140° 70% 30% - Dark Green - Text on success -->
+    
+    <Color x:Key="Destructive">#FFEBEE</Color>
+    <!-- HSL: 350° 100% 97% - Light Red - Error messages, cancelled status -->
+    
+    <Color x:Key="DestructiveForeground">#C62828</Color>
+    <!-- HSL: 350° 90% 45% - Dark Red - Text on destructive -->
+
+    <!-- UI COLORS -->
+    <Color x:Key="Card">#FFFFFF</Color>
+    <!-- Pure White - Card backgrounds -->
+    
+    <Color x:Key="Muted">#F1F5F9</Color>
+    <!-- HSL: 210° 40% 96% - Very Light Gray - Muted backgrounds -->
+    
+    <Color x:Key="MutedForeground">#64748B</Color>
+    <!-- Gray - Text on muted background -->
+    
+    <Color x:Key="Accent">#E2E8F0</Color>
+    <!-- HSL: 210° 40% 94% - Light Gray - Accent elements -->
+    
+    <Color x:Key="AccentContainer">#FFF3E0</Color>
+    <!-- HSL: 36° 100% 94% - Light Orange - Container for accent icons/elements -->
+    
+    <Color x:Key="Border">#E2E8F0</Color>
+    <!-- HSL: 214° 32% 91% - Light Border - Borders and dividers -->
+    
+    <Color x:Key="Input">#E2E8F0</Color>
+    <!-- HSL: 214° 32% 91% - Light Gray - Input backgrounds -->
+    
+    <Color x:Key="Ring">#3B82F6</Color>
+    <!-- HSL: 221° 83% 53% - Blue - Focus rings -->
+
+    <!-- SIDEBAR COLORS -->
+    <Color x:Key="SidebarBackground">#FFFFFF</Color>
+    <!-- White - Sidebar background -->
+    
+    <Color x:Key="SidebarForeground">#020817</Color>
+    <!-- Almost Black - Sidebar text -->
+    
+    <Color x:Key="SidebarPrimary">#3B82F6</Color>
+    <!-- Blue - Active sidebar items -->
+    
+    <Color x:Key="SidebarBorder">#E2E8F0</Color>
+    <!-- Light Gray - Sidebar borders -->
+
+    <!-- EXTENDED PALETTE FOR COMPONENTS -->
+    
+    <!-- Blues -->
+    <Color x:Key="Blue50">#EFF6FF</Color>
+    <Color x:Key="Blue100">#DBEAFE</Color>
+    <Color x:Key="Blue200">#BFDBFE</Color>
+    <Color x:Key="Blue300">#93C5FD</Color>
+    <Color x:Key="Blue400">#60A5FA</Color>
+    <Color x:Key="Blue500">#3B82F6</Color>
+    <Color x:Key="Blue600">#2563EB</Color>
+    <Color x:Key="Blue700">#1D4ED8</Color>
+    <Color x:Key="Blue800">#1E40AF</Color>
+    <Color x:Key="Blue900">#1E3A8A</Color>
+
+    <!-- Greens -->
+    <Color x:Key="Green50">#F0FDF4</Color>
+    <Color x:Key="Green100">#DCFCE7</Color>
+    <Color x:Key="Green200">#BBF7D0</Color>
+    <Color x:Key="Green300">#86EFAC</Color>
+    <Color x:Key="Green400">#4ADE80</Color>
+    <Color x:Key="Green500">#22C55E</Color>
+    <Color x:Key="Green600">#16A34A</Color>
+    <Color x:Key="Green700">#15803D</Color>
+    <Color x:Key="Green800">#166534</Color>
+    <Color x:Key="Green900">#14532D</Color>
+
+    <!-- Reds -->
+    <Color x:Key="Red50">#FEF2F2</Color>
+    <Color x:Key="Red100">#FEE2E2</Color>
+    <Color x:Key="Red200">#FECACA</Color>
+    <Color x:Key="Red300">#FCA5A5</Color>
+    <Color x:Key="Red400">#F87171</Color>
+    <Color x:Key="Red500">#EF4444</Color>
+    <Color x:Key="Red600">#DC2626</Color>
+    <Color x:Key="Red700">#B91C1C</Color>
+    <Color x:Key="Red800">#991B1B</Color>
+    <Color x:Key="Red900">#7F1D1D</Color>
+
+    <!-- Purples -->
+    <Color x:Key="Purple50">#FAF5FF</Color>
+    <Color x:Key="Purple100">#F3E8FF</Color>
+    <Color x:Key="Purple200">#E9D5FF</Color>
+    <Color x:Key="Purple300">#D8B4FE</Color>
+    <Color x:Key="Purple400">#C084FC</Color>
+    <Color x:Key="Purple500">#A855F7</Color>
+    <Color x:Key="Purple600">#9333EA</Color>
+    <Color x:Key="Purple700">#7E22CE</Color>
+    <Color x:Key="Purple800">#6B21A8</Color>
+    <Color x:Key="Purple900">#581C87</Color>
+
+    <!-- Ambers/Yellows -->
+    <Color x:Key="Amber50">#FFFBEB</Color>
+    <Color x:Key="Amber100">#FEF3C7</Color>
+    <Color x:Key="Amber200">#FDE68A</Color>
+    <Color x:Key="Amber300">#FCD34D</Color>
+    <Color x:Key="Amber400">#FBBF24</Color>
+    <Color x:Key="Amber500">#F59E0B</Color>
+    <Color x:Key="Amber600">#D97706</Color>
+    <Color x:Key="Amber700">#B45309</Color>
+    <Color x:Key="Amber800">#92400E</Color>
+    <Color x:Key="Amber900">#78350F</Color>
+
+    <!-- Grays -->
+    <Color x:Key="Gray50">#F9FAFB</Color>
+    <Color x:Key="Gray100">#F3F4F6</Color>
+    <Color x:Key="Gray200">#E5E7EB</Color>
+    <Color x:Key="Gray300">#D1D5DB</Color>
+    <Color x:Key="Gray400">#9CA3AF</Color>
+    <Color x:Key="Gray500">#6B7280</Color>
+    <Color x:Key="Gray600">#4B5563</Color>
+    <Color x:Key="Gray700">#374151</Color>
+    <Color x:Key="Gray800">#1F2937</Color>
+    <Color x:Key="Gray900">#111827</Color>
+
+    <!-- DARK THEME COLORS (For future dark mode support) -->
+    <Color x:Key="DarkPrimary">#60A5FA</Color>
+    <Color x:Key="DarkBackground">#020817</Color>
+    <Color x:Key="DarkForeground">#F7FAFC</Color>
+    <Color x:Key="DarkSecondary">#1E293B</Color>
+    <Color x:Key="DarkMuted">#1E293B</Color>
+
+    <!-- COMPONENT-SPECIFIC COLORS -->
+    
+    <!-- Headers -->
+    <Color x:Key="HeaderBackground">#2C3E50</Color>
+    <Color x:Key="HeaderForeground">#FFFFFF</Color>
+    <Color x:Key="HeaderSubtext">#BDC3C7</Color>
+
+    <!-- Status Badge Colors -->
+    <Color x:Key="StatusActiveBackground">#E8F5E9</Color>
+    <Color x:Key="StatusActiveForeground">#1B5E20</Color>
+    
+    <Color x:Key="StatusPendingBackground">#E3F2FD</Color>
+    <Color x:Key="StatusPendingForeground">#0D47A1</Color>
+    
+    <Color x:Key="StatusCancelledBackground">#FFEBEE</Color>
+    <Color x:Key="StatusCancelledForeground">#C62828</Color>
+    
+    <Color x:Key="StatusInactiveBackground">#F1F5F9</Color>
+    <Color x:Key="StatusInactiveForeground">#64748B</Color>
+
+    <!-- Button Colors -->
+    <Color x:Key="ButtonPrimary">#2563EB</Color>
+    <Color x:Key="ButtonPrimaryHover">#1D4ED8</Color>
+    <Color x:Key="ButtonSecondary">#E5E7EB</Color>
+    <Color x:Key="ButtonSecondaryHover">#D1D5DB</Color>
+    <Color x:Key="ButtonSuccess">#059669</Color>
+    <Color x:Key="ButtonSuccessHover">#047857</Color>
+    <Color x:Key="ButtonDanger">#DC2626</Color>
+    <Color x:Key="ButtonDangerHover">#B91C1C</Color>
+
+    <!-- WebSocket Status Colors -->
+    <Color x:Key="WebSocketConnected">#10B981</Color>
+    <Color x:Key="WebSocketDisconnected">#EF4444</Color>
+    <Color x:Key="WebSocketConnecting">#F59E0B</Color>
+
+</ResourceDictionary>

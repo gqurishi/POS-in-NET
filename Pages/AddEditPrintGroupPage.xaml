@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Pages.AddEditPrintGroupPage"
+             Title="Print Group">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            
+            <!-- Name -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Name *" FontAttributes="Bold"/>
+                <Entry x:Name="NameEntry" Placeholder="e.g., Kitchen Station 1"/>
+            </VerticalStackLayout>
+
+            <!-- Printer Type -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Printer Type" FontAttributes="Bold"/>
+                <Picker x:Name="PrinterTypePicker">
+                    <Picker.Items>
+                        <x:String>Receipt</x:String>
+                        <x:String>Label</x:String>
+                    </Picker.Items>
+                </Picker>
+            </VerticalStackLayout>
+
+            <!-- Printer IP -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Printer IP Address" FontAttributes="Bold"/>
+                <Entry x:Name="PrinterIpEntry" 
+                       Placeholder="e.g., 192.168.1.100"
+                       Keyboard="Numeric"/>
+            </VerticalStackLayout>
+
+            <!-- Printer Port -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Printer Port" FontAttributes="Bold"/>
+                <Entry x:Name="PrinterPortEntry" 
+                       Placeholder="9100"
+                       Keyboard="Numeric"/>
+            </VerticalStackLayout>
+
+            <!-- Color Code -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Color Code" FontAttributes="Bold"/>
+                <HorizontalStackLayout Spacing="10">
+                    <Entry x:Name="ColorCodeEntry" 
+                           Placeholder="#FF0000"
+                           WidthRequest="200"/>
+                    <BoxView x:Name="ColorPreview" 
+                             WidthRequest="50" 
+                             HeightRequest="40"
+                             CornerRadius="5"/>
+                </HorizontalStackLayout>
+                <Label Text="Hex color code (e.g., #FF0000 for red)" 
+                       FontSize="12" 
+                       TextColor="Gray"/>
+            </VerticalStackLayout>
+
+            <!-- Display Order -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Display Order" FontAttributes="Bold"/>
+                <Entry x:Name="DisplayOrderEntry" 
+                       Placeholder="1"
+                       Keyboard="Numeric"/>
+            </VerticalStackLayout>
+
+            <!-- Active Status -->
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Active" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+                <Switch x:Name="IsActiveSwitch"/>
+            </HorizontalStackLayout>
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Text="Cancel" 
+                        BackgroundColor="#6B7280"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="0,12"
+                        Clicked="OnCancelClicked"
+                        Grid.Column="0"/>
+                <Button Text="Save" 
+                        BackgroundColor="#10B981"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="0,12"
+                        Clicked="OnSaveClicked"
+                        Grid.Column="1"/>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

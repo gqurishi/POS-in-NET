@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.AddSubCategoryDialog">
+    
+    <Frame BackgroundColor="#80000000"
+           Padding="0"
+           HasShadow="False"
+           CornerRadius="0">
+        
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center"
+              WidthRequest="500">
+            
+            <Frame BackgroundColor="White"
+                   CornerRadius="16"
+                   Padding="0"
+                   HasShadow="True">
+                
+                <VerticalStackLayout Spacing="0">
+                    <!-- Header -->
+                    <Grid BackgroundColor="#8B5CF6"
+                          Padding="24,20">
+                        <Label x:Name="DialogTitle"
+                               Text="Add New Sub-Category"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </Grid>
+                    
+                    <!-- Content -->
+                    <ScrollView MaximumHeightRequest="500">
+                        <VerticalStackLayout Padding="24" Spacing="20">
+                            
+                            <!-- Parent Category Selection -->
+                            <VerticalStackLayout Spacing="12">
+                                <Label Text="Parent Category *"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#1E293B" />
+                                
+                                <!-- Search/Filter -->
+                                <Entry x:Name="CategorySearchEntry"
+                                       Placeholder="Search categories..."
+                                       FontSize="14"
+                                       TextColor="#1E293B"
+                                       PlaceholderColor="#94A3B8"
+                                       BackgroundColor="#F8FAFC"
+                                       HeightRequest="40"
+                                       TextChanged="OnCategorySearchChanged" />
+                                
+                                <!-- Scrollable Category List -->
+                                <Frame Padding="0"
+                                       BackgroundColor="#F8FAFC"
+                                       BorderColor="#E2E8F0"
+                                       CornerRadius="12"
+                                       HasShadow="False">
+                                    <ScrollView MaximumHeightRequest="200">
+                                        <CollectionView x:Name="ParentCategoryCollectionView"
+                                                        SelectionMode="Single"
+                                                        SelectionChanged="OnParentCategorySelected">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Frame Margin="8"
+                                                           Padding="12"
+                                                           BackgroundColor="White"
+                                                           BorderColor="#E2E8F0"
+                                                           CornerRadius="8"
+                                                           HasShadow="False">
+                                                        <!-- Highlight when selected -->
+                                                        <VisualStateManager.VisualStateGroups>
+                                                            <VisualStateGroup x:Name="CommonStates">
+                                                                <VisualState x:Name="Normal" />
+                                                                <VisualState x:Name="Selected">
+                                                                    <VisualState.Setters>
+                                                                        <Setter Property="BackgroundColor" Value="#F5F3FF" />
+                                                                        <Setter Property="BorderColor" Value="#8B5CF6" />
+                                                                    </VisualState.Setters>
+                                                                </VisualState>
+                                                            </VisualStateGroup>
+                                                        </VisualStateManager.VisualStateGroups>
+                                                        
+                                                        <Grid ColumnDefinitions="Auto,*,Auto">
+                                                            <!-- Radio Button Circle -->
+                                                            <Border Grid.Column="0"
+                                                                   WidthRequest="20"
+                                                                   HeightRequest="20"
+                                                                   Stroke="#8B5CF6"
+                                                                   StrokeThickness="2"
+                                                                   BackgroundColor="Transparent"
+                                                                   StrokeShape="RoundRectangle 10"
+                                                                   VerticalOptions="Center">
+                                                                <!-- Inner Dot - shows when IsSelected is true -->
+                                                                <Ellipse WidthRequest="10"
+                                                                        HeightRequest="10"
+                                                                        Fill="#8B5CF6"
+                                                                        HorizontalOptions="Center"
+                                                                        VerticalOptions="Center"
+                                                                        IsVisible="{Binding IsSelected}" />
+                                                            </Border>
+                                                            
+                                                            <Label Grid.Column="1" 
+                                                                   Text="{Binding Name}"
+                                                                   FontSize="15"
+                                                                   FontAttributes="Bold"
+                                                                   TextColor="#1E293B"
+                                                                   VerticalOptions="Center"
+                                                                   Margin="12,0,0,0" />
+                                                            
+                                                            <Label Grid.Column="2"
+                                                                   Text="True"
+                                                                   FontSize="10"
+                                                                   FontAttributes="Bold"
+                                                                   TextColor="#10B981"
+                                                                   VerticalOptions="Center" />
+                                                        </Grid>
+                                                    </Frame>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </ScrollView>
+                                </Frame>
+                                
+                                <!-- Selected Category Display -->
+                                <Frame x:Name="SelectedCategoryFrame"
+                                       IsVisible="False"
+                                       Padding="12"
+                                       BackgroundColor="#EDE9FE"
+                                       BorderColor="#8B5CF6"
+                                       CornerRadius="8"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Label Grid.Column="0"
+                                               Text="✓"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#8B5CF6"
+                                               VerticalOptions="Center" />
+                                        <Label Grid.Column="1"
+                                               x:Name="SelectedCategoryLabel"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="#6B21A8"
+                                               Margin="8,0,0,0"
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                </Frame>
+                            </VerticalStackLayout>
+                        
+                        <!-- Sub-Category Name -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Sub-Category Name *"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            <Entry x:Name="NameEntry"
+                                   Placeholder="Enter sub-category name"
+                                   FontSize="15"
+                                   TextColor="#1E293B"
+                                   PlaceholderColor="#94A3B8"
+                                   BackgroundColor="#F8FAFC"
+                                   HeightRequest="48" />
+                        </VerticalStackLayout>
+                        
+                        <!-- Active Switch -->
+                        <HorizontalStackLayout Spacing="12">
+                            <Switch x:Name="ActiveSwitch"
+                                    IsToggled="True"
+                                    OnColor="#8B5CF6" />
+                            <Label Text="Active"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        
+                        </VerticalStackLayout>
+                    </ScrollView>
+                    
+                    <!-- Buttons -->
+                    <Grid ColumnDefinitions="*,*"
+                          Padding="24,0,24,24"
+                          ColumnSpacing="12">
+                        
+                        <Button Grid.Column="0"
+                                Text="Cancel"
+                                BackgroundColor="#E2E8F0"
+                                TextColor="#64748B"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                CornerRadius="8"
+                                HeightRequest="48"
+                                Clicked="OnCancelClicked" />
+                        
+                        <Button Grid.Column="1"
+                                x:Name="SaveButton"
+                                Text="Save"
+                                BackgroundColor="#8B5CF6"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                CornerRadius="8"
+                                HeightRequest="48"
+                                Clicked="OnSaveClicked" />
+                    </Grid>
+                    
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Frame>
+</ContentView>

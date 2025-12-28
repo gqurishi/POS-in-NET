@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Pages.CustomColorPickerPage"
+             BackgroundColor="Transparent">
+
+    <Grid>
+        <!-- Semi-transparent overlay -->
+        <BoxView Color="#80000000" Opacity="0.7">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCancelClicked" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Main Dialog -->
+        <Frame BackgroundColor="White"
+               CornerRadius="20"
+               Padding="0"
+               HasShadow="True"
+               MaximumWidthRequest="500"
+               MaximumHeightRequest="650"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="20">
+
+            <Grid RowDefinitions="Auto,*,Auto">
+                
+                <!-- Header -->
+                <Grid Grid.Row="0" 
+                      BackgroundColor="#6366F1"
+                      Padding="24,20">
+                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                        <Label Text="🎨"
+                               FontSize="28"
+                               VerticalOptions="Center" />
+                        <Label Text="Choose Custom Color"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+                <!-- Content -->
+                <ScrollView Grid.Row="1" Padding="24">
+                    <VerticalStackLayout Spacing="24">
+                        
+                        <!-- Live Color Preview -->
+                        <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                            <Label Text="Color Preview"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#64748B"
+                                   HorizontalOptions="Center" />
+                            
+                            <Frame x:Name="ColorPreviewFrame"
+                                   BackgroundColor="#3B82F6"
+                                   CornerRadius="60"
+                                   Padding="0"
+                                   HasShadow="True"
+                                   WidthRequest="120"
+                                   HeightRequest="120"
+                                   HorizontalOptions="Center">
+                                <Frame.Shadow>
+                                    <Shadow Brush="#3B82F6"
+                                           Opacity="0.4"
+                                           Radius="20"
+                                           Offset="0,4" />
+                                </Frame.Shadow>
+                            </Frame>
+                            
+                            <Label x:Name="ColorCodeLabel"
+                                   Text="#3B82F6"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+
+                        <!-- Color Input -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Enter Hex Color Code"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            
+                            <Frame BorderColor="#E2E8F0"
+                                   BackgroundColor="White"
+                                   CornerRadius="12"
+                                   Padding="0"
+                                   HasShadow="False">
+                                <HorizontalStackLayout Spacing="8" Padding="16,12">
+                                    <Label Text="#"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#64748B"
+                                           VerticalOptions="Center" />
+                                    <Entry x:Name="ColorInput"
+                                           Placeholder="FF5733"
+                                           FontSize="18"
+                                           TextColor="#1E293B"
+                                           PlaceholderColor="#94A3B8"
+                                           MaxLength="6"
+                                           Keyboard="Text"
+                                           HorizontalOptions="FillAndExpand"
+                                           TextChanged="OnColorInputChanged" />
+                                </HorizontalStackLayout>
+                            </Frame>
+                            
+                            <Label Text="Example: FF5733, 10B981, 3B82F6"
+                                   FontSize="12"
+                                   TextColor="#94A3B8"
+                                   Margin="4,0,0,0" />
+                        </VerticalStackLayout>
+
+                        <!-- Quick Pick Colors -->
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Quick Pick Popular Colors"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            
+                            <FlexLayout Wrap="Wrap"
+                                       JustifyContent="SpaceBetween"
+                                       AlignItems="Center"
+                                       x:Name="QuickPickContainer">
+                                <!-- Quick pick colors will be added here -->
+                            </FlexLayout>
+                        </VerticalStackLayout>
+
+                        <!-- Validation Message -->
+                        <Frame x:Name="ValidationFrame"
+                               IsVisible="False"
+                               BackgroundColor="#FEE2E2"
+                               BorderColor="#EF4444"
+                               CornerRadius="8"
+                               Padding="12"
+                               HasShadow="False">
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="❌"
+                                       FontSize="16"
+                                       VerticalOptions="Center" />
+                                <Label x:Name="ValidationMessage"
+                                       Text="Invalid color code"
+                                       FontSize="14"
+                                       TextColor="#DC2626"
+                                       VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Frame>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <!-- Footer Buttons -->
+                <Grid Grid.Row="2" 
+                      ColumnDefinitions="*,*"
+                      Padding="24"
+                      ColumnSpacing="12">
+                    
+                    <Button Grid.Column="0"
+                           Text="Cancel"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#64748B"
+                           BackgroundColor="#F1F5F9"
+                           CornerRadius="12"
+                           HeightRequest="50"
+                           Clicked="OnCancelClicked" />
+                    
+                    <Button Grid.Column="1"
+                           x:Name="ApplyButton"
+                           Text="Apply Color"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           BackgroundColor="#6366F1"
+                           CornerRadius="12"
+                           HeightRequest="50"
+                           Clicked="OnApplyClicked" />
+                </Grid>
+
+            </Grid>
+        </Frame>
+    </Grid>
+
+</ContentPage>

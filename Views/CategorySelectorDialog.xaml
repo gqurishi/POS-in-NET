@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.CategorySelectorDialog">
+    
+    <Frame BackgroundColor="#80000000"
+           Padding="0"
+           HasShadow="False"
+           CornerRadius="0">
+        
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center"
+              WidthRequest="550">
+            
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="0"
+                   HasShadow="True">
+                
+                <VerticalStackLayout Spacing="0">
+                    <!-- Header -->
+                    <Grid BackgroundColor="#10B981"
+                          Padding="32,24"
+                          RowDefinitions="Auto,Auto">
+                        
+                        <!-- App Icon -->
+                        <Frame Grid.Row="0"
+                               WidthRequest="80"
+                               HeightRequest="80"
+                               CornerRadius="18"
+                               BackgroundColor="#6366F1"
+                               Padding="0"
+                               HasShadow="True"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,16">
+                            <Label Text=".NET"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Frame>
+                        
+                        <Label Grid.Row="1"
+                               x:Name="DialogTitle"
+                               Text="Select Category"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </Grid>
+                    
+                    <!-- Search Box -->
+                    <Frame Padding="20,20,20,10"
+                           BackgroundColor="White"
+                           HasShadow="False">
+                        <Border Stroke="#E2E8F0"
+                                StrokeThickness="2"
+                                BackgroundColor="#F8FAFC"
+                                StrokeShape="RoundRectangle 12"
+                                Padding="12,0">
+                            <Entry x:Name="SearchEntry"
+                                   Placeholder="Search categories..."
+                                   FontSize="15"
+                                   TextColor="#1E293B"
+                                   PlaceholderColor="#94A3B8"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="44"
+                                   TextChanged="OnSearchTextChanged" />
+                        </Border>
+                    </Frame>
+                    
+                    <!-- Categories List -->
+                    <ScrollView MaximumHeightRequest="400"
+                                Padding="20,0,20,20">
+                        <VerticalStackLayout x:Name="CategoriesContainer"
+                                           Spacing="8" />
+                    </ScrollView>
+                    
+                    <!-- Cancel Button -->
+                    <Grid Padding="20,0,20,20">
+                        <Button Text="Cancel"
+                                BackgroundColor="#E2E8F0"
+                                TextColor="#475569"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                CornerRadius="12"
+                                HeightRequest="50"
+                                Clicked="OnCancelClicked" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Frame>
+</ContentView>

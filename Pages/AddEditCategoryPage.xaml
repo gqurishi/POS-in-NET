@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:POS_in_NET.Converters"
+             x:Class="POS_in_NET.Pages.AddEditCategoryPage"
+             Title="Add Category"
+             BackgroundColor="Transparent">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <local:BoolToBorderColorConverter x:Key="BoolToBorderColorConverter" />
+            <local:BoolToFontAttributesConverter x:Key="BoolToFontAttributesConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Overlay Background -->
+        <BoxView Color="#80000000"
+                 Opacity="0.5">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCancelClicked" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Dialog Container -->
+        <Frame BackgroundColor="White"
+               CornerRadius="16"
+               Padding="0"
+               HasShadow="True"
+               WidthRequest="500"
+               MaximumWidthRequest="600"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="20">
+            
+            <VerticalStackLayout Spacing="0">
+                <!-- Header -->
+                <Grid BackgroundColor="#3B82F6" Padding="24,20">
+                    <Label x:Name="DialogTitle"
+                           Text="Add New Category"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Content -->
+                <ScrollView>
+                    <VerticalStackLayout Padding="24" Spacing="20">
+                        
+                        <!-- Category Name -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Category Name *"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            <Frame BorderColor="#E2E8F0"
+                                   BackgroundColor="White"
+                                   CornerRadius="8"
+                                   Padding="0"
+                                   HasShadow="False">
+                                <Entry x:Name="CategoryNameEntry"
+                                       Placeholder="e.g., Starters, Main Courses"
+                                       FontSize="16"
+                                       TextColor="#1E293B"
+                                       PlaceholderColor="#94A3B8"
+                                       Margin="12,8" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Color Selection -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Color *"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            
+                            <HorizontalStackLayout Spacing="12" x:Name="ColorContainer">
+                                <!-- Preset colors will be added here dynamically -->
+                            </HorizontalStackLayout>
+                            
+                            <!-- Custom Hex Color Input -->
+                            <VerticalStackLayout Spacing="8" Margin="0,12,0,0">
+                                <Label Text="Or Enter Custom Hex Color"
+                                       FontSize="13"
+                                       TextColor="#64748B" />
+                                
+                                <Frame BackgroundColor="White"
+                                       BorderColor="#CBD5E1"
+                                       CornerRadius="8"
+                                       Padding="0"
+                                       HasShadow="false">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Label Text="#"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#64748B"
+                                               VerticalOptions="Center"
+                                               Margin="12,0,0,0" />
+                                        
+                                        <Entry x:Name="CustomColorEntry"
+                                               Placeholder="FF5733 or F00"
+                                               FontSize="16"
+                                               TextColor="#1E293B"
+                                               PlaceholderColor="#94A3B8"
+                                               BackgroundColor="Transparent"
+                                               Margin="0,8,12,8"
+                                               MaxLength="6"
+                                               Keyboard="Default"
+                                               TextChanged="OnCustomColorTextChanged"
+                                               HorizontalOptions="FillAndExpand" />
+                                    </HorizontalStackLayout>
+                                </Frame>
+                                
+                                <!-- Color Preview -->
+                                <Frame x:Name="ColorPreviewFrame"
+                                       IsVisible="False"
+                                       BackgroundColor="White"
+                                       BorderColor="#CBD5E1"
+                                       CornerRadius="8"
+                                       Padding="12"
+                                       HasShadow="false">
+                                    <HorizontalStackLayout Spacing="12">
+                                        <Frame x:Name="ColorPreviewCircle"
+                                               BackgroundColor="White"
+                                               BorderColor="#E2E8F0"
+                                               CornerRadius="20"
+                                               Padding="0"
+                                               HasShadow="false"
+                                               WidthRequest="40"
+                                               HeightRequest="40" />
+                                        
+                                        <Label x:Name="ColorPreviewLabel"
+                                               Text="Preview"
+                                               FontSize="14"
+                                               TextColor="#64748B"
+                                               VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Frame>
+                                
+                                <Label x:Name="ColorErrorLabel"
+                                       IsVisible="False"
+                                       FontSize="12"
+                                       TextColor="#EF4444"
+                                       Margin="4,0,0,0" />
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+
+                        <!-- Parent Category (for sub-categories) -->
+                        <VerticalStackLayout x:Name="ParentCategorySection" Spacing="12">
+                            <Label x:Name="ParentLabel" Text="Select Parent Category *"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            
+                            <Label x:Name="ParentHintLabel" 
+                                   Text="Choose which category this sub-category belongs to"
+                                   FontSize="12"
+                                   TextColor="#64748B"
+                                   Margin="0,0,0,8" />
+                            
+                            <!-- Category Selection List -->
+                            <CollectionView x:Name="ParentCategoryCollectionView"
+                                          SelectionMode="Single"
+                                          SelectionChanged="OnParentCategorySelected"
+                                          HeightRequest="160">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BackgroundColor="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"
+                                               Stroke="{Binding IsSelected, Converter={StaticResource BoolToBorderColorConverter}}"
+                                               StrokeThickness="2"
+                                               Padding="16,12"
+                                               Margin="0">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="8" />
+                                            </Border.StrokeShape>
+                                            <HorizontalStackLayout Spacing="12">
+                                                <BoxView WidthRequest="24"
+                                                        HeightRequest="24"
+                                                        BackgroundColor="{Binding Color}"
+                                                        CornerRadius="4" />
+                                                <Label Text="{Binding Name}"
+                                                      FontSize="16"
+                                                      FontAttributes="{Binding IsSelected, Converter={StaticResource BoolToFontAttributesConverter}}"
+                                                      TextColor="#1E293B"
+                                                      VerticalOptions="Center" />
+                                                <Label Text="✓"
+                                                      FontSize="20"
+                                                      TextColor="#10B981"
+                                                      FontAttributes="Bold"
+                                                      IsVisible="{Binding IsSelected}"
+                                                      HorizontalOptions="EndAndExpand"
+                                                      VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <!-- Footer Buttons -->
+                <Grid BackgroundColor="#F8FAFC"
+                      Padding="24,16"
+                      ColumnDefinitions="*,*"
+                      ColumnSpacing="12">
+                    <Button Grid.Column="0"
+                            Text="Cancel"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="#64748B"
+                            BackgroundColor="White"
+                            BorderColor="#E2E8F0"
+                            BorderWidth="1"
+                            CornerRadius="8"
+                            HeightRequest="48"
+                            Clicked="OnCancelClicked" />
+                    
+                    <Button Grid.Column="1"
+                            x:Name="SaveButton"
+                            Text="Create Category"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="White"
+                            BackgroundColor="#10B981"
+                            CornerRadius="8"
+                            HeightRequest="48"
+                            Clicked="OnSaveClicked" />
+                </Grid>
+
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

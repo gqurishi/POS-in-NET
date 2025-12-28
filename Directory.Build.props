@@ -1,0 +1,8 @@
+<Project>
+  <!-- Override Xcode version detection to bypass strict version checking -->
+  <!-- Set matching version to prevent Xcode version mismatch error -->
+  <PropertyGroup>
+    <_XcodeVersion>26.0.0</_XcodeVersion>
+    <_IsMatchingXcode>true</_IsMatchingXcode>
+  </PropertyGroup>
+</Project>

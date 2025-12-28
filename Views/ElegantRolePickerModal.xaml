@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.ElegantRolePickerModal"
+             BackgroundColor="Transparent">
+
+    <!-- Overlay Background -->
+    <Grid BackgroundColor="#80000000">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnCancelClicked"/>
+        </Grid.GestureRecognizers>
+        
+        <!-- Modal Card -->
+        <Border VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                WidthRequest="380"
+                Padding="40">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="24"/>
+            </Border.StrokeShape>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFFFFF" Offset="0.0"/>
+                    <GradientStop Color="#F8FAFF" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Shadow>
+                <Shadow Brush="#8B5CF6" Radius="32" Opacity="0.25" Offset="0,12"/>
+            </Border.Shadow>
+            
+            <StackLayout Spacing="32">
+                <!-- Header -->
+                <StackLayout Spacing="12">
+                    <Label Text="Select User Role" 
+                           FontFamily="InterBold" 
+                           FontSize="26" 
+                           TextColor="#1F2937"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Choose the appropriate access level for this user" 
+                           FontFamily="InterMedium" 
+                           FontSize="16" 
+                           TextColor="#6366F1"
+                           Opacity="0.8"
+                           HorizontalOptions="Center"/>
+                </StackLayout>
+                
+                <!-- Role Options -->
+                <StackLayout Spacing="16">
+                    <!-- User Role -->
+                    <Border Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#F0F9FF" Offset="0.0"/>
+                                <GradientStop Color="#E0F2FE" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#0EA5E9" Radius="8" Opacity="0.15" Offset="0,4"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRoleSelected"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Border BackgroundColor="#0EA5E9"
+                                    WidthRequest="48"
+                                    HeightRequest="48"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label Text="U" 
+                                       FontFamily="InterBold" 
+                                       FontSize="18" 
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <StackLayout Grid.Column="1" Margin="16,0,0,0" VerticalOptions="Center" Spacing="4">
+                                <Button Text="User" 
+                                        FontFamily="InterBold" 
+                                        FontSize="18" 
+                                        TextColor="#0F172A"
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="Start"
+                                        Clicked="OnRoleSelected"/>
+                                <Label Text="Basic access for daily operations" 
+                                       FontFamily="InterRegular" 
+                                       FontSize="14" 
+                                       TextColor="#64748B"/>
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Manager Role -->
+                    <Border Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FFF7ED" Offset="0.0"/>
+                                <GradientStop Color="#FFEDD5" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#F97316" Radius="8" Opacity="0.15" Offset="0,4"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRoleSelected"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Border BackgroundColor="#F97316"
+                                    WidthRequest="48"
+                                    HeightRequest="48"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label Text="M" 
+                                       FontFamily="InterBold" 
+                                       FontSize="18" 
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <StackLayout Grid.Column="1" Margin="16,0,0,0" VerticalOptions="Center" Spacing="4">
+                                <Button Text="Manager" 
+                                        FontFamily="InterBold" 
+                                        FontSize="18" 
+                                        TextColor="#0F172A"
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="Start"
+                                        Clicked="OnRoleSelected"/>
+                                <Label Text="Elevated access for team supervision" 
+                                       FontFamily="InterRegular" 
+                                       FontSize="14" 
+                                       TextColor="#64748B"/>
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- Admin Role -->
+                    <Border Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FDF2F8" Offset="0.0"/>
+                                <GradientStop Color="#FCE7F3" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="#EC4899" Radius="8" Opacity="0.15" Offset="0,4"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRoleSelected"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Border BackgroundColor="#EC4899"
+                                    WidthRequest="48"
+                                    HeightRequest="48"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label Text="A" 
+                                       FontFamily="InterBold" 
+                                       FontSize="18" 
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <StackLayout Grid.Column="1" Margin="16,0,0,0" VerticalOptions="Center" Spacing="4">
+                                <Button Text="Admin" 
+                                        FontFamily="InterBold" 
+                                        FontSize="18" 
+                                        TextColor="#0F172A"
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="Start"
+                                        Clicked="OnRoleSelected"/>
+                                <Label Text="Full system access and control" 
+                                       FontFamily="InterRegular" 
+                                       FontSize="14" 
+                                       TextColor="#64748B"/>
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+                </StackLayout>
+                
+                <!-- Cancel Button -->
+                <Border HeightRequest="56" Margin="0,16,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#F1F5F9" Offset="0.0"/>
+                            <GradientStop Color="#E2E8F0" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Button Text="Cancel" 
+                            BackgroundColor="Transparent" 
+                            TextColor="#64748B"
+                            FontFamily="InterMedium"
+                            FontSize="16"
+                            Clicked="OnCancelClicked"/>
+                </Border>
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

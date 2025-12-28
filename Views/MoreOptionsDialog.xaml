@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.MoreOptionsDialog"
+             BackgroundColor="#80000000"
+             VerticalOptions="Fill"
+             HorizontalOptions="Fill">
+    
+    <Grid VerticalOptions="Center" 
+          HorizontalOptions="Center"
+          Padding="40">
+        <Frame BackgroundColor="White"
+               CornerRadius="20"
+               Padding="25"
+               WidthRequest="650"
+               HasShadow="True"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <Grid>
+                <!-- Close X Button -->
+                <Button Text="✕"
+                        BackgroundColor="#EF4444"
+                        TextColor="White"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        CornerRadius="20"
+                        Padding="0"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Margin="0,-10,-10,0"
+                        Clicked="OnCancelClicked"
+                        ZIndex="10"/>
+                
+                <ScrollView MaximumHeightRequest="650">
+                    <VerticalStackLayout Spacing="15">
+                        
+                        <!-- Title -->
+                        <Label Text="More Options"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#1F2937"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,15"/>
+                        
+                        <!-- Options Grid (3 columns) -->
+                        <Grid x:Name="OptionsGrid"
+                              ColumnDefinitions="*,*,*"
+                              ColumnSpacing="10"
+                              RowSpacing="10"
+                              Margin="0,0,0,10"/>
+                        
+                        <!-- Cancel Button -->
+                        <Button Text="Cancel"
+                                BackgroundColor="#E5E7EB"
+                                TextColor="#6B7280"
+                                FontAttributes="Bold"
+                                CornerRadius="12"
+                                HeightRequest="50"
+                                FontSize="16"
+                                Margin="0,10,0,0"
+                                Clicked="OnCancelClicked" />
+                        
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Grid>
+        </Frame>
+    </Grid>
+    
+</ContentView>

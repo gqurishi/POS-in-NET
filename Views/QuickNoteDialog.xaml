@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.QuickNoteDialog"
+             BackgroundColor="#80000000"
+             VerticalOptions="Fill"
+             HorizontalOptions="Fill">
+    
+    <Grid VerticalOptions="Center" 
+          HorizontalOptions="Center"
+          Padding="40">
+        <Frame BackgroundColor="White"
+               CornerRadius="20"
+               Padding="30"
+               WidthRequest="500"
+               HasShadow="True"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="20">
+                
+                <!-- Icon -->
+                <Border BackgroundColor="#6366F1"
+                        StrokeThickness="0"
+                        WidthRequest="70"
+                        HeightRequest="70"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="35"/>
+                    </Border.StrokeShape>
+                    <Label Text="+"
+                           FontSize="36"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+                
+                <!-- Title -->
+                <Label x:Name="TitleLabel"
+                       Text="Add Quick Note"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+                
+                <!-- Message -->
+                <Label Text="Create a quick note that staff can select when taking orders"
+                       FontSize="14"
+                       TextColor="#6B7280"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap"/>
+                
+                <!-- Input Field -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Note Text (max 50 characters)"
+                           FontSize="13"
+                           FontAttributes="Bold"
+                           TextColor="#475569" />
+                    <Border BackgroundColor="#F9FAFB"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1.5"
+                            Padding="15"
+                            Margin="0,0,0,5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="InputEntry"
+                               Placeholder="e.g., No onions, Extra sauce, Well done"
+                               FontSize="16"
+                               TextColor="#1F2937"
+                               PlaceholderColor="#9CA3AF"
+                               BackgroundColor="Transparent"
+                               MaxLength="50"
+                               HeightRequest="45" />
+                    </Border>
+                    <Label x:Name="CharCountLabel"
+                           Text="0/50"
+                           FontSize="11"
+                           TextColor="#94A3B8"
+                           HorizontalOptions="End" />
+                </VerticalStackLayout>
+                
+                <!-- Buttons -->
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="15"
+                      Margin="0,10,0,0">
+                    <Button Grid.Column="0"
+                            x:Name="CancelButton"
+                            Text="Cancel"
+                            BackgroundColor="#E5E7EB"
+                            TextColor="#6B7280"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="50"
+                            FontSize="16"
+                            Clicked="OnCancelClicked" />
+                    
+                    <Button Grid.Column="1"
+                            x:Name="SaveButton"
+                            Text="Add Note"
+                            BackgroundColor="#6366F1"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="50"
+                            FontSize="16"
+                            Clicked="OnSaveClicked" />
+                </Grid>
+                
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+    
+</ContentView>

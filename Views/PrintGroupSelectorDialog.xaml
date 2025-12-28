@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.PrintGroupSelectorDialog">
+    
+    <!-- Semi-transparent overlay -->
+    <Grid BackgroundColor="#80000000">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+        </Grid.GestureRecognizers>
+        
+        <!-- Dialog Card -->
+        <Border WidthRequest="500"
+                HeightRequest="650"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,8" Radius="32" Opacity="0.24" />
+            </Border.Shadow>
+            
+            <Grid RowDefinitions="Auto,*,Auto" 
+                  Padding="0"
+                  RowSpacing="0">
+                
+                <!-- Header -->
+                <Border Grid.Row="0"
+                        BackgroundColor="#0F172A"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 20,20,0,0"
+                        Padding="28,24">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Assign to Print Group"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                        <Label Text="Select an existing group or create a new one"
+                               FontSize="13"
+                               TextColor="#94A3B8"
+                               HorizontalOptions="Center"
+                               Opacity="0.9" />
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Content Area - Scrollable List -->
+                <ScrollView Grid.Row="1" Padding="20,16">
+                    <VerticalStackLayout x:Name="PrintGroupsList" Spacing="10" />
+                </ScrollView>
+                
+                <!-- Footer Buttons -->
+                <Grid Grid.Row="2"
+                      ColumnDefinitions="*,*"
+                      ColumnSpacing="12"
+                      Padding="28,0,28,24">
+                    
+                    <Button Grid.Column="0"
+                            Text="Cancel"
+                            BackgroundColor="White"
+                            TextColor="#64748B"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            BorderColor="#E2E8F0"
+                            BorderWidth="2"
+                            CornerRadius="12"
+                            HeightRequest="52"
+                            Clicked="OnCancelClicked" />
+                    
+                    <Button Grid.Column="1"
+                            Text="+ Create New Group"
+                            BackgroundColor="#22C55E"
+                            TextColor="White"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="52"
+                            Clicked="OnCreateNewGroupClicked">
+                        <Button.Shadow>
+                            <Shadow Brush="#22C55E" Offset="0,4" Radius="12" Opacity="0.3" />
+                        </Button.Shadow>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentView>

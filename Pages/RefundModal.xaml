@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Pages.RefundModal"
+             BackgroundColor="#80000000">
+
+    <Frame BackgroundColor="White"
+           Margin="60"
+           Padding="24"
+           CornerRadius="16"
+           HasShadow="True"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           WidthRequest="500">
+
+        <VerticalStackLayout Spacing="20">
+            
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Process Refund"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+                
+                <Border BackgroundColor="Transparent"
+                        StrokeThickness="0"
+                        Padding="8"
+                        Grid.Column="1">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCancelClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="✕"
+                           FontSize="24"
+                           TextColor="#6B7280"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- Order Info -->
+            <Frame BackgroundColor="#FEF3C7" 
+                   Padding="16"
+                   CornerRadius="8"
+                   HasShadow="False"
+                   BorderColor="#FCD34D">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Text="Order:" FontSize="14" FontAttributes="Bold" TextColor="#92400E" Grid.Column="0"/>
+                        <Label x:Name="OrderNumberLabel" Text="-" FontSize="14" TextColor="#78350F" Grid.Column="1" Margin="8,0,0,0"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Text="Original Amount:" FontSize="14" FontAttributes="Bold" TextColor="#92400E" Grid.Column="0"/>
+                        <Label x:Name="OriginalAmountLabel" Text="£0.00" FontSize="14" TextColor="#78350F" Grid.Column="1" Margin="8,0,0,0"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Refund Type Selection -->
+            <VerticalStackLayout Spacing="12">
+                <Label Text="Refund Type" FontSize="16" FontAttributes="Bold" TextColor="#374151"/>
+                
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Border x:Name="FullRefundBorder"
+                            BackgroundColor="#10B981"
+                            StrokeThickness="0"
+                            Padding="16,12"
+                            Grid.Column="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFullRefundSelected"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="Full Refund" 
+                               TextColor="White"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+
+                    <Border x:Name="PartialRefundBorder"
+                            BackgroundColor="#F3F4F6"
+                            StrokeThickness="0"
+                            Padding="16,12"
+                            Grid.Column="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPartialRefundSelected"/>
+                        </Border.GestureRecognizers>
+                        <Label x:Name="PartialRefundLabel"
+                               Text="Partial Refund" 
+                               TextColor="#6B7280"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- Partial Refund Amount -->
+            <VerticalStackLayout x:Name="PartialAmountLayout" Spacing="8" IsVisible="False">
+                <Label Text="Refund Amount" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+                <Frame BackgroundColor="White" 
+                       Padding="12"
+                       CornerRadius="8"
+                       HasShadow="False"
+                       BorderColor="#D1D5DB">
+                    <Entry x:Name="RefundAmountEntry"
+                           Placeholder="Enter amount"
+                           Keyboard="Numeric"
+                           TextColor="#1F2937"
+                           PlaceholderColor="#9CA3AF"
+                           FontSize="15"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Refund Reason -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Reason for Refund" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+                <Frame BackgroundColor="White" 
+                       Padding="12"
+                       CornerRadius="8"
+                       HasShadow="False"
+                       BorderColor="#D1D5DB">
+                    <Editor x:Name="RefundReasonEditor"
+                            Placeholder="Enter reason (optional)"
+                            TextColor="#1F2937"
+                            PlaceholderColor="#9CA3AF"
+                            FontSize="15"
+                            HeightRequest="80"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <!-- Refund Summary -->
+            <Frame BackgroundColor="#DBEAFE" 
+                   Padding="16"
+                   CornerRadius="8"
+                   HasShadow="False"
+                   BorderColor="#93C5FD">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Refund Amount:" FontSize="16" FontAttributes="Bold" TextColor="#1E3A8A" Grid.Column="0"/>
+                    <Label x:Name="RefundSummaryLabel" Text="£0.00" FontSize="18" FontAttributes="Bold" TextColor="#1E40AF" Grid.Column="1"/>
+                </Grid>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border BackgroundColor="#DC2626"
+                        StrokeThickness="0"
+                        Padding="16,12"
+                        Grid.Column="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8"/>
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnConfirmRefundClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="Confirm Refund" 
+                           TextColor="White"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+
+                <Border BackgroundColor="#6B7280"
+                        StrokeThickness="0"
+                        Padding="16,12"
+                        Grid.Column="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8"/>
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCancelClicked"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="Cancel" 
+                           TextColor="White"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+
+        </VerticalStackLayout>
+    </Frame>
+</ContentPage>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.ComponentLabelDialog">
+    
+    <!-- Semi-transparent overlay -->
+    <Grid BackgroundColor="#80000000">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+        </Grid.GestureRecognizers>
+        
+        <!-- Dialog Card -->
+        <Border WidthRequest="420"
+                HeightRequest="300"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,8" Radius="32" Opacity="0.24" />
+            </Border.Shadow>
+            
+            <Grid RowDefinitions="Auto,*,Auto" 
+                  Padding="0"
+                  RowSpacing="0">
+                
+                <!-- Header with gradient -->
+                <Border Grid.Row="0"
+                        BackgroundColor="#8B5CF6"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 20,20,0,0"
+                        Padding="28,24">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Add Component Label"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                        <Label Text="Each component will print as a separate label"
+                               FontSize="13"
+                               TextColor="#E9D5FF"
+                               HorizontalOptions="Center"
+                               Opacity="0.9" />
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Content Area -->
+                <VerticalStackLayout Grid.Row="1" 
+                                    Padding="28,24"
+                                    Spacing="16"
+                                    VerticalOptions="Center">
+                    
+                    <Label Text="Component Name"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#64748B"
+                           Margin="0,0,0,4" />
+                    
+                    <!-- Modern Input Field -->
+                    <Border BackgroundColor="#F8FAFC"
+                            StrokeThickness="2"
+                            Stroke="#E2E8F0"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="0">
+                        <Entry x:Name="ComponentNameEntry"
+                               Placeholder="e.g., Roti, Curry, Rice"
+                               FontSize="16"
+                               TextColor="#0F172A"
+                               PlaceholderColor="#94A3B8"
+                               BackgroundColor="Transparent"
+                               MaxLength="50"
+                               Margin="16,12"
+                               Completed="OnEntryCompleted" />
+                    </Border>
+                    
+                    <!-- Helper Text -->
+                    <HorizontalStackLayout Spacing="6" Margin="4,0,0,0">
+                        <Label Text="💡"
+                               FontSize="14"
+                               VerticalOptions="Center" />
+                        <Label Text="Examples: Roti, Curry, Rice, Naan, Salad"
+                               FontSize="12"
+                               TextColor="#94A3B8"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                
+                <!-- Action Buttons -->
+                <Grid Grid.Row="2"
+                      ColumnDefinitions="*,*"
+                      ColumnSpacing="12"
+                      Padding="28,0,28,28">
+                    
+                    <Button Grid.Column="0"
+                            Text="Cancel"
+                            BackgroundColor="White"
+                            TextColor="#64748B"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            BorderColor="#E2E8F0"
+                            BorderWidth="2"
+                            CornerRadius="12"
+                            HeightRequest="52"
+                            Clicked="OnCancelClicked" />
+                    
+                    <Button Grid.Column="1"
+                            x:Name="OkButton"
+                            Text="Add Label"
+                            BackgroundColor="#10B981"
+                            TextColor="White"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="52"
+                            Clicked="OnOkClicked">
+                        <Button.Shadow>
+                            <Shadow Brush="#10B981" Offset="0,4" Radius="12" Opacity="0.3" />
+                        </Button.Shadow>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentView>

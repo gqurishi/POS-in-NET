@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="POS_in_NET.Pages.OrderDetailsPopup"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title=""
+             BackgroundColor="#80000000">
+    
+    <Grid>
+        <!-- Semi-transparent overlay -->
+        <BoxView BackgroundColor="#80000000" />
+        
+        <!-- Main Content Card -->
+        <Border BackgroundColor="White"
+                StrokeThickness="0"
+                MaximumWidthRequest="900"
+                MaximumHeightRequest="700"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Margin="50">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            
+            <Grid RowDefinitions="Auto,*,Auto" Padding="0">
+                
+                <!-- Header -->
+                <Grid Grid.Row="0" 
+                      BackgroundColor="#f9fafb"
+                      Padding="24,20"
+                      ColumnDefinitions="*,Auto">
+                    <StackLayout Grid.Column="0" Spacing="4">
+                        <Label x:Name="OrderTitleLabel"
+                               Text="Order Details: KIT-1247"
+                               FontFamily="AlegreyaBold"
+                               FontSize="24"
+                               TextColor="#111827" />
+                        <Label x:Name="OrderDateLabel"
+                               Text="Placed on: Nov 22, 2025, 9:23:21 PM"
+                               FontFamily="AlegreyaRegular"
+                               FontSize="14"
+                               TextColor="#6b7280" />
+                    </StackLayout>
+                    
+                    <Button Grid.Column="1"
+                            x:Name="CloseButton"
+                            Text="✕"
+                            BackgroundColor="Transparent"
+                            TextColor="#ef4444"
+                            FontSize="28"
+                            WidthRequest="44"
+                            HeightRequest="44"
+                            CornerRadius="22"
+                            Padding="0"
+                            Clicked="OnCloseClicked">
+                        <Button.Shadow>
+                            <Shadow Brush="Transparent" />
+                        </Button.Shadow>
+                    </Button>
+                </Grid>
+                
+                <!-- Content -->
+                <ScrollView Grid.Row="1" Padding="24,20">
+                    <StackLayout Spacing="20">
+                        
+                        <!-- Details and Customer Info -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                            
+                            <!-- Details Card -->
+                            <Border Grid.Column="0"
+                                    BackgroundColor="White"
+                                    Stroke="#e5e7eb"
+                                    StrokeThickness="1"
+                                    Padding="20">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+                                <StackLayout Spacing="16">
+                                    <Label Text="Details"
+                                           FontFamily="AlegreyaBold"
+                                           FontSize="20"
+                                           TextColor="#111827" />
+                                    
+                                    <!-- Type -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Type:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151"
+                                               VerticalOptions="Center" />
+                                        <Label Grid.Column="1"
+                                               x:Name="TypeLabel"
+                                               Text="Pickup"
+                                               FontFamily="AlegreyaRegular"
+                                               FontSize="16"
+                                               TextColor="#111827"
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                    
+                                    <!-- Payment Method -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Payment Method:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151"
+                                               VerticalOptions="Center" />
+                                        <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                                            <Label x:Name="PaymentIcon"
+                                                   Text="💵"
+                                                   FontSize="18"
+                                                   VerticalOptions="Center" />
+                                            <Label x:Name="PaymentMethodLabel"
+                                                   Text="Cash"
+                                                   FontFamily="AlegreyaBold"
+                                                   FontSize="16"
+                                                   TextColor="#10b981"
+                                                   VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                    
+                                    <!-- Voucher -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Voucher:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151"
+                                               VerticalOptions="Center" />
+                                        <Label Grid.Column="1"
+                                               x:Name="VoucherLabel"
+                                               Text="N/A"
+                                               FontFamily="AlegreyaRegular"
+                                               FontSize="16"
+                                               TextColor="#111827"
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                </StackLayout>
+                            </Border>
+                            
+                            <!-- Customer Card -->
+                            <Border Grid.Column="1"
+                                    BackgroundColor="White"
+                                    Stroke="#e5e7eb"
+                                    StrokeThickness="1"
+                                    Padding="20">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+                                <StackLayout Spacing="16">
+                                    <Label Text="Customer"
+                                           FontFamily="AlegreyaBold"
+                                           FontSize="20"
+                                           TextColor="#111827" />
+                                    
+                                    <!-- Name -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Name:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151" />
+                                        <Label Grid.Column="1"
+                                               x:Name="CustomerNameLabel"
+                                               Text="Kahab"
+                                               FontFamily="AlegreyaRegular"
+                                               FontSize="16"
+                                               TextColor="#111827" />
+                                    </Grid>
+                                    
+                                    <!-- Phone -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Phone:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151" />
+                                        <Label Grid.Column="1"
+                                               x:Name="CustomerPhoneLabel"
+                                               Text="07474474837"
+                                               FontFamily="AlegreyaRegular"
+                                               FontSize="16"
+                                               TextColor="#111827" />
+                                    </Grid>
+                                    
+                                    <!-- Email -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Email:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151" />
+                                        <Label Grid.Column="1"
+                                               x:Name="CustomerEmailLabel"
+                                               Text="Khab@gmail.com"
+                                               FontFamily="AlegreyaRegular"
+                                               FontSize="16"
+                                               TextColor="#111827" />
+                                    </Grid>
+                                    
+                                    <!-- Address -->
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Address:"
+                                               FontFamily="AlegreyaBold"
+                                               FontSize="16"
+                                               TextColor="#374151"
+                                               VerticalOptions="Start" />
+                                        <Label Grid.Column="1"
+                                               x:Name="CustomerAddressLabel"
+                                               Text="Collection"
+                                               FontFamily="AlegreyaRegular"
+                                               FontSize="16"
+                                               TextColor="#111827" />
+                                    </Grid>
+                                </StackLayout>
+                            </Border>
+                        </Grid>
+                        
+                        <!-- Order Items -->
+                        <Border BackgroundColor="White"
+                                Stroke="#e5e7eb"
+                                StrokeThickness="1"
+                                Padding="20">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+                            <StackLayout Spacing="12">
+                                <Label Text="Order Items"
+                                       FontFamily="AlegreyaBold"
+                                       FontSize="20"
+                                       TextColor="#111827"
+                                       Margin="0,0,0,8" />
+                                
+                                <CollectionView x:Name="OrderItemsCollection"
+                                                BackgroundColor="Transparent">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="0,8" ColumnDefinitions="*,Auto">
+                                                <Label Grid.Column="0"
+                                                       FontFamily="AlegreyaRegular"
+                                                       FontSize="16"
+                                                       TextColor="#111827">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding Quantity}" FontAttributes="Bold" />
+                                                            <Span Text="x " />
+                                                            <Span Text="{Binding ItemName}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding ItemPrice, StringFormat='£{0:F2}'}"
+                                                       FontFamily="AlegreyaBold"
+                                                       FontSize="16"
+                                                       TextColor="#111827" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Border>
+                        
+                        <!-- Payment Summary -->
+                        <Border BackgroundColor="#f9fafb"
+                                Stroke="#e5e7eb"
+                                StrokeThickness="1"
+                                Padding="20">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+                            <StackLayout Spacing="12">
+                                <Label Text="Payment Summary"
+                                       FontFamily="AlegreyaBold"
+                                       FontSize="20"
+                                       TextColor="#111827"
+                                       Margin="0,0,0,8" />
+                                
+                                <!-- Delivery Fee -->
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="Delivery Fee"
+                                           FontFamily="AlegreyaRegular"
+                                           FontSize="16"
+                                           TextColor="#374151" />
+                                    <Label Grid.Column="1"
+                                           x:Name="DeliveryFeeLabel"
+                                           Text="£0.00"
+                                           FontFamily="AlegreyaRegular"
+                                           FontSize="16"
+                                           TextColor="#111827" />
+                                </Grid>
+                                
+                                <BoxView HeightRequest="1"
+                                         BackgroundColor="#d1d5db"
+                                         Margin="0,8" />
+                                
+                                <!-- Total -->
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="Total"
+                                           FontFamily="AlegreyaBold"
+                                           FontSize="18"
+                                           TextColor="#111827" />
+                                    <Label Grid.Column="1"
+                                           x:Name="TotalLabel"
+                                           Text="£84.00"
+                                           FontFamily="AlegreyaBold"
+                                           FontSize="18"
+                                           TextColor="#111827" />
+                                </Grid>
+                                
+                                <!-- Hidden for backend -->
+                                <Label x:Name="SubtotalLabel" IsVisible="False" Text="£84.00"/>
+                            </StackLayout>
+                        </Border>
+                        
+                    </StackLayout>
+                </ScrollView>
+                
+                <!-- Footer Actions -->
+                <Border Grid.Row="2"
+                        BackgroundColor="#f9fafb"
+                        StrokeThickness="0"
+                        Padding="24,16">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="12">
+                        <HorizontalStackLayout Grid.Column="1" Spacing="12">
+                            <Button x:Name="PrintButton"
+                                    Text="🖨️  Print"
+                                    BackgroundColor="White"
+                                    TextColor="#111827"
+                                    FontFamily="AlegreyaBold"
+                                    FontSize="16"
+                                    Padding="20,12"
+                                    CornerRadius="8"
+                                    BorderColor="#d1d5db"
+                                    BorderWidth="1"
+                                    Clicked="OnPrintClicked" />
+                            
+                            <Button x:Name="CloseButtonBottom"
+                                    Text="Close"
+                                    BackgroundColor="#6b7280"
+                                    TextColor="White"
+                                    FontFamily="AlegreyaBold"
+                                    FontSize="16"
+                                    Padding="20,12"
+                                    CornerRadius="8"
+                                    Clicked="OnCloseClicked" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                </Border>
+                
+            </Grid>
+        </Border>
+    </Grid>
+    
+</ContentPage>

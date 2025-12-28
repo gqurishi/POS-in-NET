@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="POS_in_NET.Pages.GiftCardPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:POS_in_NET.Views"
+             xmlns:controls="clr-namespace:POS_in_NET.Controls"
+             Title=""
+             BackgroundColor="#F8FAFC">
+
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Top Bar -->
+        <views:TopBar x:Name="TopBar" Grid.Row="0"/>
+        
+        <!-- Toast Notification Overlay -->
+        <controls:ToastNotification x:Name="ToastNotification" 
+                                   Grid.RowSpan="2"
+                                   ZIndex="2000"
+                                   InputTransparent="True"/>
+        
+        <!-- Modern Main Content -->
+        <ScrollView Grid.Row="1">
+            <Grid Padding="40,32" 
+                  ColumnDefinitions="*,*" 
+                  ColumnSpacing="32"
+                  MaximumWidthRequest="1600" 
+                  HorizontalOptions="Center">
+
+                <!-- LEFT COLUMN: Check Balance -->
+                <Border Grid.Column="0"
+                        BackgroundColor="White"
+                        Stroke="#E5E7EB"
+                        StrokeThickness="1"
+                        Padding="48,40"
+                        StrokeShape="RoundRectangle 16"
+                        Shadow="{StaticResource CardShadow}"
+                        VerticalOptions="Start">
+                    <VerticalStackLayout Spacing="24">
+                        <Label Text="Check Balance" 
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#1F2937" />
+
+                        <!-- Clean Entry Field -->
+                        <Border Stroke="#D1D5DB"
+                                StrokeThickness="1"
+                                BackgroundColor="#F9FAFB"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="20,16">
+                            <Entry x:Name="GiftCardEntry"
+                                   Placeholder="Enter gift card number (e.g., GC123456)"
+                                   FontSize="17"
+                                   TextColor="#1F2937"
+                                   PlaceholderColor="#9CA3AF"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="56" />
+                        </Border>
+
+                        <!-- Check Button -->
+                        <Button x:Name="CheckBalanceButton"
+                                Text="Check Balance"
+                                BackgroundColor="#3B82F6"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HeightRequest="60"
+                                CornerRadius="10"
+                                Clicked="OnCheckGiftCardClicked">
+                            <Button.Shadow>
+                                <Shadow Brush="#3B82F6"
+                                        Offset="0,4"
+                                        Radius="12"
+                                        Opacity="0.3" />
+                            </Button.Shadow>
+                        </Button>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- RIGHT COLUMN: Gift Card Details -->
+                <Border x:Name="GiftCardDetailsFrame"
+                        Grid.Column="1"
+                        BackgroundColor="White"
+                        Stroke="#10B981"
+                        StrokeThickness="2"
+                        Padding="48,40"
+                        StrokeShape="RoundRectangle 16"
+                        Shadow="{StaticResource CardShadow}"
+                        IsVisible="False"
+                        VerticalOptions="Start">
+                <VerticalStackLayout Spacing="28">
+                    <!-- Card Header -->
+                    <Label Text="Redeem Gift Card" 
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#10B981" />
+
+                    <BoxView HeightRequest="1" 
+                             BackgroundColor="#E5E7EB" />
+
+                    <!-- Card Number -->
+                    <Border BackgroundColor="#F9FAFB"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            Padding="24,20"
+                            StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Card Number" 
+                                   FontSize="15" 
+                                   TextColor="#6B7280"
+                                   FontAttributes="Bold" />
+                            <Label x:Name="CardNumberLabel"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#1F2937"
+                                   FontFamily="Monospace"
+                                   LineBreakMode="MiddleTruncation" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Balance - Large Display -->
+                    <Border BackgroundColor="#ECFDF5"
+                            Stroke="#10B981"
+                            StrokeThickness="2"
+                            Padding="40,32"
+                            StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="Current Balance" 
+                                   FontSize="15" 
+                                   TextColor="#059669"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Bold" />
+                            <Label x:Name="BalanceLabel"
+                                   Text="£0.00"
+                                   FontSize="48"
+                                   FontAttributes="Bold"
+                                   TextColor="#047857"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Info Grid -->
+                    <Grid RowDefinitions="Auto,Auto,Auto" 
+                          ColumnDefinitions="150,*"
+                          RowSpacing="20"
+                          ColumnSpacing="18">
+                        
+                        <!-- Card Type -->
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Card Type:" 
+                               FontSize="15" 
+                               TextColor="#6B7280"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                        <Border Grid.Row="0" Grid.Column="1"
+                                BackgroundColor="#EEF2FF"
+                                Stroke="#6366F1"
+                                StrokeThickness="1"
+                                Padding="14,10"
+                                StrokeShape="RoundRectangle 8"
+                                HorizontalOptions="Start">
+                            <Label x:Name="CardTypeLabel"
+                                   Text="Digital"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="#4F46E5" />
+                        </Border>
+
+                        <!-- Status -->
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Status:" 
+                               FontSize="15" 
+                               TextColor="#6B7280"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                        <Border Grid.Row="1" Grid.Column="1"
+                                BackgroundColor="#ECFDF5"
+                                Stroke="#10B981"
+                                StrokeThickness="1"
+                                Padding="14,10"
+                                StrokeShape="RoundRectangle 8"
+                                HorizontalOptions="Start">
+                            <Label x:Name="StatusLabel"
+                                   Text="Active"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="#10B981" />
+                        </Border>
+
+                        <!-- Expiry Date -->
+                        <Label Grid.Row="2" Grid.Column="0"
+                               Text="Expiry Date:" 
+                               FontSize="15" 
+                               TextColor="#6B7280"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                        <Label Grid.Row="2" Grid.Column="1"
+                               x:Name="ExpiryLabel"
+                               Text="Expires: Sept 05, 2026"
+                               FontSize="16"
+                               TextColor="#1F2937"
+                               VerticalOptions="Center" />
+                    </Grid>
+
+                    <BoxView HeightRequest="1" 
+                             BackgroundColor="#E5E7EB" />
+
+                    <!-- Action Buttons -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                        <Button x:Name="RedeemButton"
+                                Grid.Column="0"
+                                Text="Redeem"
+                                BackgroundColor="#10B981"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HeightRequest="60"
+                                CornerRadius="10"
+                                Clicked="OnRedeemAmountClicked">
+                            <Button.Shadow>
+                                <Shadow Brush="#10B981"
+                                        Offset="0,4"
+                                        Radius="12"
+                                        Opacity="0.3" />
+                            </Button.Shadow>
+                        </Button>
+
+                        <Button Grid.Column="1"
+                                Text="Refresh"
+                                BackgroundColor="#6B7280"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                HeightRequest="60"
+                                CornerRadius="10"
+                                Clicked="OnRefreshGiftCardClicked">
+                            <Button.Shadow>
+                                <Shadow Brush="#6B7280"
+                                        Offset="0,4"
+                                        Radius="12"
+                                        Opacity="0.3" />
+                            </Button.Shadow>
+                        </Button>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </ScrollView>
+    
+    </Grid>
+
+</ContentPage>

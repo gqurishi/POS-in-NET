@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:POS_in_NET.Views"
+             xmlns:controls="clr-namespace:POS_in_NET.Controls"
+             x:Class="POS_in_NET.Pages.TablePage"
+             Title=""
+             BackgroundColor="{StaticResource Background}">
+
+    <!-- Modern Grid with Overlay Support -->
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Top Bar -->
+        <views:TopBar x:Name="TopBar" Grid.Row="0"/>
+        
+        <!-- Content with Overlay -->
+        <Grid Grid.Row="1">
+            
+            <!-- Toast Notification Overlay -->
+            <controls:ToastNotification x:Name="ToastNotification" 
+                                       Grid.RowSpan="2"
+                                       ZIndex="1000"
+                                       InputTransparent="True"/>
+        <!-- Modern Main Content -->
+        <Grid RowDefinitions="Auto,*" Padding="24">
+        
+        <!-- Modern Header Section -->
+        <VerticalStackLayout Grid.Row="0" Spacing="20" Margin="0,0,0,24">
+            
+            <!-- Modern No Floors Warning -->
+            <Frame x:Name="NoFloorsWarning"
+                   IsVisible="False"
+                   BackgroundColor="#FEF2F2"
+                   BorderColor="#FEE2E2"
+                   Padding="20"
+                   CornerRadius="16"
+                   HasShadow="False">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="No Floors Available"
+                           Style="{StaticResource TitleMedium}"
+                           TextColor="{StaticResource Error}"
+                           HorizontalOptions="Start" />
+                    <Label Text="Please create at least one floor before adding tables"
+                           Style="{StaticResource BodyMedium}"
+                           TextColor="{StaticResource Error}"
+                           Opacity="0.8" />
+                    <Button Text="→ Go to Floor Management"
+                            BackgroundColor="{StaticResource Error}"
+                            TextColor="White"
+                            Style="{StaticResource PrimaryButton}"
+                            HeightRequest="44"
+                            Clicked="OnGoToFloorManagementClicked"
+                            HorizontalOptions="Start"
+                            Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </Frame>
+            
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                <Label Grid.Column="0"
+                       Text="Tables"
+                       Style="{StaticResource HeadlineMedium}"
+                       VerticalOptions="Center" />
+                
+                <Button Grid.Column="1"
+                        x:Name="AddTableButton"
+                        Text="+ Add New Table"
+                        Style="{StaticResource PrimaryButton}"
+                        HeightRequest="48"
+                        Clicked="OnAddTableClicked" />
+            </Grid>
+            
+            <!-- Loading Indicator -->
+            <ActivityIndicator x:Name="LoadingIndicator"
+                             IsRunning="False"
+                             IsVisible="False"
+                             Color="{StaticResource Primary}"
+                             HeightRequest="40" />
+        </VerticalStackLayout>
+
+        <!-- Tables List - Compact Card Design -->
+        <ScrollView Grid.Row="1">
+            <CollectionView x:Name="TablesCollectionView"
+                          SelectionMode="None"
+                          Margin="0,5,0,10">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Compact Table Card with Solid Colors -->
+                        <Border BackgroundColor="White"
+                                Stroke="#D1D5DB"
+                                StrokeThickness="1"
+                                Padding="12"
+                                Margin="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            
+                            <Grid ColumnDefinitions="Auto,*,Auto,Auto" 
+                                  ColumnSpacing="12">
+                                
+                                <!-- Compact Table Icon -->
+                                <Border Grid.Column="0"
+                                        BackgroundColor="#EEF2FF"
+                                        StrokeThickness="0"
+                                        WidthRequest="46"
+                                        HeightRequest="46"
+                                        VerticalOptions="Center">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8" />
+                                    </Border.StrokeShape>
+                                    <Image Source="{Binding TableDesignIcon}"
+                                           Aspect="AspectFit"
+                                           Margin="8" />
+                                </Border>
+
+                                <!-- Compact Table Details -->
+                                <VerticalStackLayout Grid.Column="1" 
+                                                    Spacing="2"
+                                                    VerticalOptions="Center">
+                                    <Label Text="{Binding TableNumber}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#1F2937" />
+                                    
+                                    <!-- Floor Name Only -->
+                                    <Label Text="{Binding FloorName}"
+                                           FontSize="12"
+                                           TextColor="#6366F1"
+                                           FontAttributes="Bold" />
+                                </VerticalStackLayout>
+
+                                <!-- Compact Edit Button -->
+                                <Button Grid.Column="2"
+                                        Text="Edit"
+                                        BackgroundColor="#F3F4F6"
+                                        TextColor="#6B7280"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        WidthRequest="65"
+                                        HeightRequest="34"
+                                        CornerRadius="7"
+                                        Clicked="OnEditTableClicked"
+                                        CommandParameter="{Binding .}" />
+
+                                <!-- Compact Delete Button -->
+                                <Button Grid.Column="3"
+                                        Text="Delete"
+                                        BackgroundColor="#FEE2E2"
+                                        TextColor="#DC2626"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        WidthRequest="65"
+                                        HeightRequest="34"
+                                        CornerRadius="7"
+                                        Clicked="OnDeleteTableClicked"
+                                        CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="40" 
+                                        Spacing="20"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center">
+                        <Frame Padding="30"
+                               CornerRadius="100"
+                               BackgroundColor="{StaticResource Surface}"
+                               HasShadow="False"
+                               HorizontalOptions="Center">
+                            <Image Source="table_1.png"
+                                   WidthRequest="80"
+                                   HeightRequest="80"
+                                   Aspect="AspectFit"
+                                   Opacity="0.4" />
+                        </Frame>
+                        
+                        <Label Text="No Tables Yet"
+                               Style="{StaticResource HeadlineSmall}"
+                               TextColor="{StaticResource TextSecondary}"
+                               HorizontalOptions="Center" />
+                        
+                        <Label Text="Click 'Add New Table' to get started"
+                               Style="{StaticResource BodyMedium}"
+                               TextColor="{StaticResource TextSecondary}"
+                               Opacity="0.7"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </ScrollView>
+        </Grid>
+        
+        <!-- Custom Dialog Overlays -->
+        <views:StyledPromptDialog x:Name="DialogOverlay"
+                                  IsVisible="False" />
+        <views:AddTableDialog x:Name="AddTableDialogOverlay"
+                              IsVisible="False" />
+        <views:EditTableDialog x:Name="EditTableDialogOverlay"
+                               IsVisible="False" />
+        </Grid>
+    </Grid>
+</ContentPage>

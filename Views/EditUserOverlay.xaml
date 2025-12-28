@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.EditUserOverlay"
+             x:Name="EditOverlay"
+             IsVisible="False">
+
+    <!-- Semi-transparent overlay -->
+    <Grid BackgroundColor="#80000000">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+        </Grid.GestureRecognizers>
+        
+        <!-- Edit user card -->
+        <Border VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                WidthRequest="400"
+                Padding="32"
+                BackgroundColor="White">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="#8B5CF6" Radius="24" Opacity="0.2" Offset="0,8"/>
+            </Border.Shadow>
+            
+            <StackLayout Spacing="20">
+                <!-- Header -->
+                <Label Text="Edit User" 
+                       FontFamily="InterBold" 
+                       FontSize="24" 
+                       TextColor="#1E293B"
+                       HorizontalOptions="Center"/>
+                
+                <!-- Form fields -->
+                <StackLayout Spacing="16">
+                    <!-- Name field -->
+                    <StackLayout Spacing="8">
+                        <Label Text="Full Name" 
+                               FontFamily="InterMedium" 
+                               FontSize="14" 
+                               TextColor="#374151"/>
+                        <Entry x:Name="EditNameEntry"
+                               FontFamily="InterRegular"
+                               FontSize="16"
+                               TextColor="#1F2937"
+                               BackgroundColor="#F9FAFB"
+                               Placeholder="Enter full name"/>
+                    </StackLayout>
+                    
+                    <!-- Username field -->
+                    <StackLayout Spacing="8">
+                        <Label Text="Username" 
+                               FontFamily="InterMedium" 
+                               FontSize="14" 
+                               TextColor="#374151"/>
+                        <Entry x:Name="EditUsernameEntry"
+                               FontFamily="InterRegular"
+                               FontSize="16"
+                               TextColor="#1F2937"
+                               BackgroundColor="#F9FAFB"
+                               Placeholder="Enter username"/>
+                    </StackLayout>
+                    
+                    <!-- PIN field -->
+                    <StackLayout Spacing="8">
+                        <Label Text="New PIN (leave empty to keep current)" 
+                               FontFamily="InterMedium" 
+                               FontSize="14" 
+                               TextColor="#374151"/>
+                        <Entry x:Name="EditPINEntry"
+                               FontFamily="InterRegular"
+                               FontSize="16"
+                               TextColor="#1F2937"
+                               BackgroundColor="#F9FAFB"
+                               Placeholder="Enter new PIN"
+                               IsPassword="True"/>
+                    </StackLayout>
+                    
+                    <!-- Role picker button -->
+                    <StackLayout Spacing="8">
+                        <Label Text="User Role" 
+                               FontFamily="InterMedium" 
+                               FontSize="14" 
+                               TextColor="#374151"/>
+                        <Border BackgroundColor="#F8FAFC" 
+                                Stroke="#E2E8F0" 
+                                StrokeThickness="1" 
+                                HeightRequest="50">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditRolePickerTapped"/>
+                            </Border.GestureRecognizers>
+                            
+                            <Grid Padding="16,0">
+                                <Label x:Name="EditSelectedRoleLabel" 
+                                       Text="Select Role" 
+                                       FontFamily="InterRegular" 
+                                       FontSize="16" 
+                                       TextColor="#6B7280" 
+                                       VerticalOptions="Center"/>
+                                <Label Text="▼" 
+                                       FontFamily="InterRegular" 
+                                       FontSize="12" 
+                                       TextColor="#9CA3AF" 
+                                       HorizontalOptions="End" 
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </StackLayout>
+                </StackLayout>
+                
+                <!-- Action buttons -->
+                <StackLayout Orientation="Horizontal" 
+                             Spacing="12" 
+                             HorizontalOptions="Fill">
+                    <Button Text="Cancel" 
+                            BackgroundColor="#F1F5F9" 
+                            TextColor="#64748B"
+                            FontFamily="InterMedium"
+                            FontSize="16"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            Clicked="OnCancelClicked"/>
+                    
+                    <Button Text="Save Changes" 
+                            BackgroundColor="#3B82F6" 
+                            TextColor="White"
+                            FontFamily="InterBold"
+                            FontSize="16"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            Clicked="OnSaveClicked"/>
+                </StackLayout>
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentView>

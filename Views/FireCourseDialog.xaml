@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.FireCourseDialog"
+             IsVisible="False">
+    
+    <!-- Full Screen Overlay -->
+    <Grid BackgroundColor="#80000000"
+          HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+        
+        <!-- Dialog Container -->
+        <Border BackgroundColor="White"
+                Stroke="#E5E7EB"
+                StrokeThickness="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Padding="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,4" Radius="20" Opacity="0.3"/>
+            </Border.Shadow>
+            
+            <VerticalStackLayout Spacing="0" WidthRequest="450">
+                
+                <!-- Header -->
+                <Grid BackgroundColor="#4A90D9" Padding="20,16" ColumnDefinitions="*,Auto">
+                    <Label Text="Fire Course"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           VerticalOptions="Center"/>
+                    <Button Grid.Column="1"
+                            Text="X"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="White"
+                            BackgroundColor="Transparent"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            CornerRadius="18"
+                            Clicked="OnCancelClicked"/>
+                </Grid>
+                
+                <!-- Subtitle -->
+                <Label Text="Select which course to send to kitchen"
+                       FontSize="14"
+                       TextColor="#6B7280"
+                       Margin="20,16,20,8"
+                       HorizontalOptions="Center"/>
+                
+                <!-- Course Grid -->
+                <Grid Padding="20,10,20,20" 
+                      ColumnDefinitions="*,*" 
+                      RowDefinitions="Auto,Auto,Auto"
+                      ColumnSpacing="12"
+                      RowSpacing="12">
+                    
+                    <!-- Starters -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                            BackgroundColor="#E0F2FE"
+                            Stroke="#0EA5E9"
+                            StrokeThickness="2"
+                            Padding="0"
+                            HeightRequest="90">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStartersClicked"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="6">
+                            <Label Text="🥗" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Starters" FontSize="16" FontAttributes="Bold" TextColor="#0369A1" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Mains -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                            BackgroundColor="#DBEAFE"
+                            Stroke="#3B82F6"
+                            StrokeThickness="2"
+                            Padding="0"
+                            HeightRequest="90">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMainsClicked"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="6">
+                            <Label Text="🍽️" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Mains" FontSize="16" FontAttributes="Bold" TextColor="#1E40AF" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Desserts -->
+                    <Border Grid.Row="1" Grid.Column="0"
+                            BackgroundColor="#E0E7FF"
+                            Stroke="#6366F1"
+                            StrokeThickness="2"
+                            Padding="0"
+                            HeightRequest="90">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDessertsClicked"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="6">
+                            <Label Text="🍰" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Desserts" FontSize="16" FontAttributes="Bold" TextColor="#4338CA" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Drinks -->
+                    <Border Grid.Row="1" Grid.Column="1"
+                            BackgroundColor="#CFFAFE"
+                            Stroke="#06B6D4"
+                            StrokeThickness="2"
+                            Padding="0"
+                            HeightRequest="90">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDrinksClicked"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="6">
+                            <Label Text="🍹" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Drinks" FontSize="16" FontAttributes="Bold" TextColor="#0E7490" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Fire All - Full Width -->
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            BackgroundColor="#3B82F6"
+                            Stroke="#2563EB"
+                            StrokeThickness="2"
+                            Padding="0"
+                            HeightRequest="70">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFireAllClicked"/>
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                            <Label Text="🔥" FontSize="24" VerticalOptions="Center"/>
+                            <Label Text="Fire All Courses" FontSize="18" FontAttributes="Bold" TextColor="White" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                    
+                </Grid>
+                
+                <!-- Cancel Button -->
+                <Button Text="Cancel"
+                        FontSize="16"
+                        TextColor="#6B7280"
+                        BackgroundColor="#F3F4F6"
+                        CornerRadius="8"
+                        HeightRequest="44"
+                        Margin="20,0,20,20"
+                        Clicked="OnCancelClicked"/>
+                
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentView>

@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:POS_in_NET.Views"
+             x:Class="POS_in_NET.Views.AddMenuItemDialog">
+    
+    <!-- Dialogs (Hidden by default) -->
+    <Grid>
+        <views:AddAddonDialog x:Name="AddAddonDialogView" IsVisible="False" ZIndex="3000" />
+        <views:CategorySelectorDialog x:Name="CategorySelectorDialogView" IsVisible="False" ZIndex="3000" />
+        
+        <Frame BackgroundColor="#80000000"
+               Padding="0"
+               HasShadow="False"
+               CornerRadius="0">
+            
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  WidthRequest="1200"
+                  MaximumHeightRequest="900">
+                
+                <Frame BackgroundColor="White"
+                       CornerRadius="16"
+                       Padding="0"
+                       HasShadow="True">
+                    
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <!-- Header -->
+                        <Grid Grid.Row="0"
+                              BackgroundColor="#10B981"
+                              Padding="50,32">
+                            <Label x:Name="DialogTitle"
+                                   Text="Add New Menu Item"
+                                   FontSize="30"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    
+                    <!-- Scrollable Content -->
+                    <ScrollView Grid.Row="1" 
+                                Padding="40,24"
+                                VerticalScrollBarVisibility="Always"
+                                HorizontalScrollBarVisibility="Never">
+                        <VerticalStackLayout Spacing="20">
+                            
+                            <!-- Section: Basic Information -->
+                            <Frame Padding="24"
+                                   BackgroundColor="#F8FAFC"
+                                   BorderColor="#E2E8F0"
+                                   CornerRadius="14"
+                                   HasShadow="False">
+                                <VerticalStackLayout Spacing="18">
+                                    <Label Text="Basic Information"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#10B981" />
+                                    
+                                    <!-- Item Name (First) -->
+                                    <VerticalStackLayout Spacing="10">
+                                        <Label Text="Item Name *"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#475569" />
+                                        <Entry x:Name="NameEntry"
+                                               Placeholder="e.g., Margherita Pizza, Caesar Salad"
+                                               FontSize="16"
+                                               TextColor="#1E293B"
+                                               PlaceholderColor="#94A3B8"
+                                               BackgroundColor="White"
+                                               HeightRequest="50" />
+                                    </VerticalStackLayout>
+                                    
+                                    <!-- Category Selection (Second) -->
+                                    <VerticalStackLayout Spacing="10">
+                                        <Label Text="Category *"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#334155"
+                                               Margin="0,0,0,4" />
+                                        <Border Stroke="#CBD5E1"
+                                                StrokeThickness="1.5"
+                                                BackgroundColor="White"
+                                                Padding="20,16"
+                                                StrokeShape="RoundRectangle 12">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnCategoryClicked" />
+                                            </Border.GestureRecognizers>
+                                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                                                    <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                                        <Label Text="Select Category"
+                                                               FontSize="13"
+                                                               TextColor="#64748B"
+                                                               FontAttributes="None" />
+                                                        <Label x:Name="CategoryLabel"
+                                                               Text="Tap to choose"
+                                                               FontSize="17"
+                                                               FontAttributes="Bold"
+                                                               TextColor="#94A3B8"
+                                                               VerticalOptions="Center" />
+                                                    </VerticalStackLayout>
+                                                    <Border Grid.Column="1"
+                                                            BackgroundColor="#F1F5F9"
+                                                            StrokeThickness="0"
+                                                            Padding="10,8"
+                                                            StrokeShape="RoundRectangle 8"
+                                                            VerticalOptions="Center">
+                                                        <Label Text="▼"
+                                                               FontSize="14"
+                                                               TextColor="#475569"
+                                                               HorizontalOptions="Center"
+                                                               VerticalOptions="Center" />
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                    </VerticalStackLayout>
+                                    
+                                    <!-- Sub-Category Selection (Third) -->
+                                    <VerticalStackLayout Spacing="10">
+                                        <Label Text="Sub-Category"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#334155"
+                                               Margin="0,0,0,4" />
+                                        <Border x:Name="SubCategoryBorder"
+                                                Stroke="#E2E8F0"
+                                                    StrokeThickness="1.5"
+                                                    BackgroundColor="#F8FAFC"
+                                                    Padding="20,16"
+                                                    StrokeShape="RoundRectangle 12"
+                                                    IsEnabled="False"
+                                                    Opacity="0.7">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnSubCategoryClicked" />
+                                                </Border.GestureRecognizers>
+                                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                                                    <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                                        <Label Text="Optional"
+                                                               FontSize="13"
+                                                               TextColor="#94A3B8"
+                                                               FontAttributes="None" />
+                                                        <Label x:Name="SubCategoryLabel"
+                                                               Text="Select category first"
+                                                               FontSize="17"
+                                                               FontAttributes="Bold"
+                                                               TextColor="#CBD5E1"
+                                                               VerticalOptions="Center" />
+                                                    </VerticalStackLayout>
+                                                    <Border Grid.Column="1"
+                                                            BackgroundColor="#E2E8F0"
+                                                            StrokeThickness="0"
+                                                            Padding="10,8"
+                                                            StrokeShape="RoundRectangle 8"
+                                                            VerticalOptions="Center">
+                                                        <Label Text="▼"
+                                                               FontSize="14"
+                                                               TextColor="#94A3B8"
+                                                               HorizontalOptions="Center"
+                                                               VerticalOptions="Center" />
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
+                            </Frame>
+                            
+                            <!-- Section: Pricing & VAT -->
+                            <Frame Padding="24"
+                                   BackgroundColor="#FFF7ED"
+                                   BorderColor="#FED7AA"
+                                   CornerRadius="14"
+                                   HasShadow="False">
+                                <VerticalStackLayout Spacing="16">
+                                    <Label Text="Pricing &amp; VAT"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#EA580C" />
+                                    
+                                    <!-- Price and VAT Side by Side -->
+                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                                        
+                                        <!-- Price Column -->
+                                        <VerticalStackLayout Grid.Column="0" Spacing="10">
+                                            <Label Text="Price (£) *"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#475569" />
+                                            <Frame Padding="12,0"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#E2E8F0"
+                                                   CornerRadius="10"
+                                                   HasShadow="False">
+                                                <Grid ColumnDefinitions="Auto,*">
+                                                    <Label Grid.Column="0"
+                                                           Text="£"
+                                                           FontSize="20"
+                                                           FontAttributes="Bold"
+                                                           TextColor="#10B981"
+                                                           VerticalOptions="Center"
+                                                           Margin="0,0,10,0" />
+                                                    <Entry Grid.Column="1"
+                                                           x:Name="PriceEntry"
+                                                           Placeholder="0.00"
+                                                           Keyboard="Numeric"
+                                                           FontSize="18"
+                                                           TextColor="#1E293B"
+                                                           PlaceholderColor="#94A3B8"
+                                                           BackgroundColor="Transparent"
+                                                           HeightRequest="50" />
+                                                </Grid>
+                                            </Frame>
+                                            <Label Text="Includes VAT (if applicable)"
+                                                   FontSize="12"
+                                                   TextColor="#64748B"
+                                                   Margin="4,0,0,0" />
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- VAT Toggle Column -->
+                                        <VerticalStackLayout Grid.Column="1" Spacing="10">
+                                            <Label Text="VAT Status"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#475569" />
+                                            <Frame Padding="12,0"
+                                                   BackgroundColor="White"
+                                                   BorderColor="#E2E8F0"
+                                                   CornerRadius="10"
+                                                   HasShadow="False">
+                                                <Grid ColumnDefinitions="*,Auto" 
+                                                      ColumnSpacing="12"
+                                                      HeightRequest="50">
+                                                    <VerticalStackLayout Grid.Column="0" 
+                                                                        Spacing="2"
+                                                                        VerticalOptions="Center">
+                                                        <Label Text="UK VAT (20%)"
+                                                               FontSize="14"
+                                                               FontAttributes="Bold"
+                                                               TextColor="#1E293B" />
+                                                        <Label x:Name="VATStatusLabel"
+                                                               Text="Exempt"
+                                                               FontSize="11"
+                                                               TextColor="#64748B" />
+                                                    </VerticalStackLayout>
+                                                    <Switch x:Name="VATActiveSwitch"
+                                                            Grid.Column="1"
+                                                            IsToggled="False"
+                                                            OnColor="#10B981"
+                                                            ThumbColor="White"
+                                                            Toggled="OnVATActiveToggled"
+                                                            VerticalOptions="Center"
+                                                            Scale="1.0" />
+                                                </Grid>
+                                            </Frame>
+                                            <Label Text="Toggle to apply/remove VAT"
+                                                   FontSize="12"
+                                                   TextColor="#64748B"
+                                                   Margin="4,0,0,0" />
+                                        </VerticalStackLayout>
+                                        
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Frame>
+                            
+                            <!-- Section: Add-ons (Compact) -->
+                            <Frame Padding="24"
+                                   BackgroundColor="#F9FAFB"
+                                   BorderColor="#E5E7EB"
+                                   CornerRadius="12"
+                                   HasShadow="False">
+                                <VerticalStackLayout Spacing="16">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                        <Label Grid.Column="0"
+                                               Text="Add-ons (Optional)"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#374151"
+                                               VerticalOptions="Center" />
+                                        <Button Grid.Column="1"
+                                                Text="+ Add"
+                                                BackgroundColor="#6366F1"
+                                                TextColor="White"
+                                                FontSize="14"
+                                                FontAttributes="Bold"
+                                                CornerRadius="8"
+                                                Padding="12,8"
+                                                Clicked="OnAddAddonClicked" />
+                                    </Grid>
+                                    
+                                    <!-- Compact Add-ons List -->
+                                    <CollectionView x:Name="AddonsCollectionView"
+                                                    ItemsSource="{Binding Addons}"
+                                                    SelectionMode="None"
+                                                    MaximumHeightRequest="200">
+                                        <CollectionView.EmptyView>
+                                            <Label Text="No add-ons"
+                                                   FontSize="14"
+                                                   TextColor="#9CA3AF"
+                                                   HorizontalTextAlignment="Center"
+                                                   Margin="0,8" />
+                                        </CollectionView.EmptyView>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Stroke="#E5E7EB"
+                                                        StrokeThickness="1"
+                                                        BackgroundColor="White"
+                                                        Padding="12"
+                                                        Margin="0,0,0,8"
+                                                        StrokeShape="RoundRectangle 8">
+                                                    <Grid ColumnDefinitions="*,60,60" ColumnSpacing="8">
+                                                        <HorizontalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center">
+                                                            <Label Text="{Binding Name}"
+                                                                   FontSize="15"
+                                                                   FontAttributes="Bold"
+                                                                   TextColor="#1F2937"
+                                                                   VerticalOptions="Center" />
+                                                            <Label Text="{Binding Price, StringFormat='£{0:F2}'}"
+                                                                   FontSize="15"
+                                                                   TextColor="#10B981"
+                                                                   FontAttributes="Bold"
+                                                                   VerticalOptions="Center" />
+                                                        </HorizontalStackLayout>
+                                                        <Button Grid.Column="1"
+                                                                Text="✎"
+                                                                BackgroundColor="#3B82F6"
+                                                                TextColor="White"
+                                                                FontSize="16"
+                                                                CornerRadius="6"
+                                                                Padding="0"
+                                                                HeightRequest="32"
+                                                                WidthRequest="50"
+                                                                Clicked="OnEditAddonClicked"
+                                                                CommandParameter="{Binding .}" />
+                                                        <Button Grid.Column="2"
+                                                                Text="✕"
+                                                                BackgroundColor="#EF4444"
+                                                                TextColor="White"
+                                                                FontSize="16"
+                                                                CornerRadius="6"
+                                                                Padding="0"
+                                                                HeightRequest="32"
+                                                                WidthRequest="50"
+                                                                Clicked="OnDeleteAddonClicked"
+                                                                CommandParameter="{Binding .}" />
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </VerticalStackLayout>
+                            </Frame>
+                            
+                            <!-- Section: Printer Settings -->
+                            <Frame Padding="24"
+                                   BackgroundColor="#FEF2F2"
+                                   BorderColor="#FECACA"
+                                   CornerRadius="14"
+                                   HasShadow="False">
+                                <VerticalStackLayout Spacing="16">
+                                    <Label Text="🖨️ Printer Settings"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="#DC2626" />
+                                    
+                                    <!-- Print in RED Toggle -->
+                                    <Frame Padding="16"
+                                           BackgroundColor="White"
+                                           BorderColor="#E5E7EB"
+                                           CornerRadius="10"
+                                           HasShadow="False">
+                                        <Grid ColumnDefinitions="*,Auto" 
+                                              ColumnSpacing="12">
+                                            <VerticalStackLayout Grid.Column="0" 
+                                                                Spacing="4"
+                                                                VerticalOptions="Center">
+                                                <Label Text="Print in RED Ink"
+                                                       FontSize="16"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#1E293B" />
+                                                <Label Text="Highlight this item in red on kitchen tickets (two-color printers only)"
+                                                       FontSize="12"
+                                                       TextColor="#64748B"
+                                                       LineBreakMode="WordWrap" />
+                                            </VerticalStackLayout>
+                                            <Switch x:Name="PrintInRedSwitch"
+                                                    Grid.Column="1"
+                                                    IsToggled="False"
+                                                    OnColor="#DC2626"
+                                                    ThumbColor="White"
+                                                    VerticalOptions="Center"
+                                                    Scale="1.0" />
+                                        </Grid>
+                                    </Frame>
+                                    
+                                    <!-- Info Box -->
+                                    <Border Stroke="#FECACA"
+                                            StrokeThickness="1.5"
+                                            BackgroundColor="#FEF2F2"
+                                            Padding="12"
+                                            StrokeShape="RoundRectangle 8">
+                                        <Label FontSize="12"
+                                               TextColor="#991B1B"
+                                               LineBreakMode="WordWrap">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="💡 " FontAttributes="Bold" />
+                                                    <Span Text="Use red printing for special attention items like allergies, spicy dishes, or priority orders. Works with ESC/POS two-color thermal printers." />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Frame>
+                            
+                        </VerticalStackLayout>
+                    </ScrollView>
+                        
+                    <!-- Action Buttons -->
+                    <Grid Grid.Row="2"
+                          ColumnDefinitions="*,*"
+                          Padding="40,20,40,28"
+                          ColumnSpacing="16"
+                          BackgroundColor="#F8FAFC">
+                        
+                        <Button Grid.Column="0"
+                                Text="Cancel"
+                                BackgroundColor="#E2E8F0"
+                                TextColor="#64748B"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                CornerRadius="12"
+                                HeightRequest="54"
+                                Clicked="OnCancelClicked" />
+                        
+                        <Button Grid.Column="1"
+                                x:Name="SaveButton"
+                                Text="Save Menu Item"
+                                BackgroundColor="#10B981"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                CornerRadius="12"
+                                HeightRequest="54"
+                                Clicked="OnSaveClicked" />
+                    </Grid>
+                    
+                </Grid>
+            </Frame>
+        </Grid>
+    </Frame>
+    </Grid>
+</ContentView>

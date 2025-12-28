@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.AddAddonDialog">
+    
+    <Frame BackgroundColor="#80000000"
+           Padding="0"
+           HasShadow="False"
+           CornerRadius="0">
+        
+        <Grid HorizontalOptions="Center"
+              VerticalOptions="Center"
+              WidthRequest="500">
+            
+            <Frame BackgroundColor="White"
+                   CornerRadius="16"
+                   Padding="0"
+                   HasShadow="True">
+                
+                <VerticalStackLayout Spacing="0">
+                    <!-- Header -->
+                    <Grid BackgroundColor="#6366F1"
+                          Padding="24,20">
+                        <Label x:Name="DialogTitle"
+                               Text="Add New Add-on"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </Grid>
+                    
+                    <!-- Content -->
+                    <VerticalStackLayout Padding="24" Spacing="20">
+                        
+                        <!-- Add-on Name -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Add-on Name *"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            <Entry x:Name="NameEntry"
+                                   Placeholder="e.g., Extra Cheese, Bacon, Avocado"
+                                   FontSize="15"
+                                   TextColor="#1E293B"
+                                   PlaceholderColor="#94A3B8"
+                                   BackgroundColor="#F8FAFC"
+                                   HeightRequest="50" />
+                        </VerticalStackLayout>
+                        
+                        <!-- Add-on Price -->
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Price *"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Label Grid.Column="0"
+                                       Text="£"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#6366F1"
+                                       VerticalOptions="Center"
+                                       Margin="12,0,8,0" />
+                                <Entry Grid.Column="1"
+                                       x:Name="PriceEntry"
+                                       Placeholder="0.00"
+                                       Keyboard="Numeric"
+                                       FontSize="15"
+                                       TextColor="#1E293B"
+                                       PlaceholderColor="#94A3B8"
+                                       BackgroundColor="#F8FAFC"
+                                       HeightRequest="50" />
+                            </Grid>
+                        </VerticalStackLayout>
+                        
+                    </VerticalStackLayout>
+                    
+                    <!-- Action Buttons -->
+                    <Grid ColumnDefinitions="*,*"
+                          Padding="24,0,24,24"
+                          ColumnSpacing="12">
+                        
+                        <Button Grid.Column="0"
+                                Text="Cancel"
+                                BackgroundColor="#E2E8F0"
+                                TextColor="#475569"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                HeightRequest="50"
+                                Clicked="OnCancelClicked" />
+                        
+                        <Button Grid.Column="1"
+                                x:Name="SaveButton"
+                                Text="Add"
+                                BackgroundColor="#6366F1"
+                                TextColor="White"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                HeightRequest="50"
+                                Clicked="OnSaveClicked" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Frame>
+</ContentView>

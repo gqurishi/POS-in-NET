@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:POS_in_NET.Views"
+             xmlns:controls="clr-namespace:POS_in_NET.Controls"
+             x:Class="POS_in_NET.Pages.CloudSettingsPage"
+             Title=""
+             BackgroundColor="{StaticResource Background}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        
+        <!-- Top Bar -->
+        <views:TopBar x:Name="TopBar" Grid.Row="0"/>
+        
+        <!-- Toast Notification Overlay -->
+        <controls:ToastNotification x:Name="ToastNotification" 
+                                   Grid.RowSpan="3"
+                                   ZIndex="1000"
+                                   InputTransparent="True"/>
+        
+        <!-- Modern Tab Bar -->
+        <Frame Grid.Row="1" 
+               BackgroundColor="White"
+               Padding="0"
+               CornerRadius="0"
+               HasShadow="False"
+               BorderColor="#E5E7EB">
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Padding="20,16">
+                <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                    <!-- Business Info Tab -->
+                    <Border x:Name="BusinessTabBorder"
+                            BackgroundColor="White"
+                            StrokeThickness="1"
+                            Stroke="#E5E7EB"
+                            Padding="24,12"
+                            MinimumWidthRequest="140"
+                            HeightRequest="48">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBusinessTabClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="Business Info" 
+                               TextColor="#6B7280"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Border>
+
+                    <!-- User Tab -->
+                    <Border x:Name="UserTabBorder"
+                            BackgroundColor="White"
+                            StrokeThickness="1"
+                            Stroke="#E5E7EB"
+                            Padding="24,12"
+                            MinimumWidthRequest="100"
+                            HeightRequest="48">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnUserTabClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="User" 
+                               TextColor="#6B7280"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Border>
+
+                    <!-- OrderWeb Connect Tab (Active) -->
+                    <Border x:Name="CloudTabBorder"
+                            BackgroundColor="#F3E8FF"
+                            StrokeThickness="2"
+                            Stroke="#8B5CF6"
+                            Padding="24,12"
+                            MinimumWidthRequest="160"
+                            HeightRequest="48">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="#8B5CF6" Radius="8" Opacity="0.2" Offset="0,2"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloudTabClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="OrderWeb Connect" 
+                               TextColor="#8B5CF6"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Border>
+
+                    <!-- Postcode Lookup Tab -->
+                    <Border x:Name="PostcodeTabBorder"
+                            BackgroundColor="White"
+                            StrokeThickness="1"
+                            Stroke="#E5E7EB"
+                            Padding="24,12"
+                            MinimumWidthRequest="150"
+                            HeightRequest="48">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPostcodeTabClicked"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="Postcode Lookup" 
+                               TextColor="#6B7280"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Border>
+                </HorizontalStackLayout>
+            </ScrollView>
+        </Frame>
+        
+        <!-- Main Content -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="40" Spacing="32" MaximumWidthRequest="800" HorizontalOptions="Center">
+                
+                <!-- Header Section -->
+                <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                    <Label Text="OrderWeb Connect" 
+                           FontSize="36" 
+                           FontAttributes="Bold"
+                           TextColor="#1F2937"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Configuration Form -->
+                <VerticalStackLayout Spacing="20">
+                    
+                    <!-- Restaurant ID -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Restaurant ID" 
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#374151"/>
+                        <Border BackgroundColor="White"
+                                Stroke="#D1D5DB"
+                                StrokeThickness="1"
+                                Padding="14,12"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry x:Name="TenantSlugEntry"
+                                   Placeholder=""
+                                   PlaceholderColor="#9CA3AF"
+                                   TextColor="#1F2937"
+                                   BackgroundColor="Transparent"
+                                   FontSize="15"
+                                   TextChanged="OnFieldChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- API Key -->
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="API Key" 
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   TextColor="#374151"
+                                   VerticalOptions="Center"/>
+                            <Button x:Name="ToggleApiKeyButton"
+                                    Text="👁️ Show"
+                                    FontSize="11"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{StaticResource Primary}"
+                                    Padding="6,2"
+                                    Clicked="OnToggleApiKeyClicked"/>
+                        </HorizontalStackLayout>
+                        <Border BackgroundColor="White"
+                                Stroke="#D1D5DB"
+                                StrokeThickness="1"
+                                Padding="14,12"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry x:Name="ApiKeyEntry"
+                                   Placeholder=""
+                                   PlaceholderColor="#9CA3AF"
+                                   TextColor="#1F2937"
+                                   BackgroundColor="Transparent"
+                                   FontSize="15"
+                                   IsPassword="True"
+                                   TextChanged="OnFieldChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- REST API URL -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="REST API URL" 
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#374151"/>
+                        <Border BackgroundColor="White"
+                                Stroke="#D1D5DB"
+                                StrokeThickness="1"
+                                Padding="14,12"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry x:Name="RestApiUrlEntry"
+                                   Placeholder=""
+                                   Text="https://orderweb.net/api"
+                                   PlaceholderColor="#9CA3AF"
+                                   TextColor="#1F2937"
+                                   BackgroundColor="Transparent"
+                                   FontSize="15"
+                                   TextChanged="OnFieldChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- WebSocket URL -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="WebSocket URL" 
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#374151"/>
+                        <Border BackgroundColor="White"
+                                Stroke="#D1D5DB"
+                                StrokeThickness="1"
+                                Padding="14,12"
+                                StrokeShape="RoundRectangle 8">
+                            <Entry x:Name="WebSocketUrlEntry"
+                                   Placeholder=""
+                                   PlaceholderColor="#9CA3AF"
+                                   TextColor="#1F2937"
+                                   BackgroundColor="Transparent"
+                                   FontSize="15"
+                                   TextChanged="OnFieldChanged"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Save Settings Button -->
+                    <Button Text="Save Settings"
+                            Clicked="OnSaveSettingsClicked"
+                            BackgroundColor="#10B981"
+                            TextColor="White"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            CornerRadius="8"
+                            HeightRequest="50"
+                            Margin="0,8,0,0"/>
+                    
+                    <!-- Action Buttons Row -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Margin="0,8,0,0">
+                        <Button Grid.Column="0"
+                                x:Name="ConnectButton"
+                                Text="Connect to OrderWeb.net"
+                                Clicked="OnConnectClicked"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="White"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                HeightRequest="50"
+                                IsEnabled="False"/>
+                        
+                        <Button Grid.Column="1"
+                                x:Name="SyncOrdersButton"
+                                Text="Sync Orders Now"
+                                Clicked="OnSyncOrdersClicked"
+                                BackgroundColor="#8B5CF6"
+                                TextColor="White"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                HeightRequest="50"
+                                IsEnabled="False"/>
+                    </Grid>
+                    
+                    <!-- Historical Sync Button -->
+                    <Button x:Name="SyncHistoricalButton"
+                            Text="📅 Sync Last 2 Months (Historical Orders)"
+                            Clicked="OnSyncHistoricalClicked"
+                            BackgroundColor="#F59E0B"
+                            TextColor="White"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            CornerRadius="8"
+                            HeightRequest="50"
+                            Margin="0,8,0,0"
+                            IsEnabled="False"/>
+
+                </VerticalStackLayout>
+
+                <!-- Connection Status Card -->
+                <Border BackgroundColor="White"
+                        Stroke="#E5E7EB"
+                        StrokeThickness="1"
+                        Padding="24"
+                        StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Connection Status" 
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#1F2937"/>
+                        
+                        <!-- Connection Status Box -->
+                        <Frame x:Name="ConnectionStatusFrame"
+                               BackgroundColor="#FEF3C7"
+                               BorderColor="Transparent"
+                               CornerRadius="8"
+                               Padding="16"
+                               HasShadow="False">
+                            <VerticalStackLayout Spacing="4">
+                                <HorizontalStackLayout Spacing="8">
+                                    <Label x:Name="ConnectionStatusIcon" 
+                                           Text="✅" 
+                                           FontSize="18"
+                                           VerticalOptions="Center"/>
+                                    <Label x:Name="ConnectionStatusText"
+                                           Text="Connected"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#1F2937"
+                                           VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <Label x:Name="ConnectionStatusDescription"
+                                       Text="Receiving orders in real-time"
+                                       FontSize="13"
+                                       TextColor="#6B7280"
+                                       Margin="26,0,0,0"/>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- System Status Grid -->
+                        <VerticalStackLayout Spacing="12" Margin="0,8,0,0">
+                            <Label Text="📊 System Status" 
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="#374151"/>
+                            
+                            <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto,Auto" 
+                                  RowSpacing="10" ColumnSpacing="12">
+                                
+                                <Label Grid.Row="0" Grid.Column="0" 
+                                       Text="Connection:" 
+                                       FontSize="14" 
+                                       TextColor="#6B7280"/>
+                                <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="8">
+                                    <Label x:Name="StatusConnectionIcon" 
+                                           Text="🟢" 
+                                           FontSize="14"/>
+                                    <Label x:Name="StatusConnectionText" 
+                                           Text="Live" 
+                                           FontSize="14" 
+                                           FontAttributes="Bold"
+                                           TextColor="#10B981"/>
+                                </HorizontalStackLayout>
+
+                                <Label Grid.Row="1" Grid.Column="0" 
+                                       Text="Backup:" 
+                                       FontSize="14" 
+                                       TextColor="#6B7280"/>
+                                <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="8">
+                                    <Label x:Name="StatusBackupIcon" 
+                                           Text="✅" 
+                                           FontSize="14"/>
+                                    <Label x:Name="StatusBackupText" 
+                                           Text="Active" 
+                                           FontSize="14" 
+                                           FontAttributes="Bold"
+                                           TextColor="#10B981"/>
+                                </HorizontalStackLayout>
+
+                                <Label Grid.Row="2" Grid.Column="0" 
+                                       Text="Last Check:" 
+                                       FontSize="14" 
+                                       TextColor="#6B7280"/>
+                                <Label Grid.Row="2" Grid.Column="1"
+                                       x:Name="StatusLastCheckText"
+                                       Text="12:32:59" 
+                                       FontSize="14" 
+                                       TextColor="#1F2937"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" 
+                                       Text="Print Queue:" 
+                                       FontSize="14" 
+                                       TextColor="#6B7280"/>
+                                <Label Grid.Row="3" Grid.Column="1"
+                                       x:Name="StatusPrintQueueText"
+                                       Text="0 pending" 
+                                       FontSize="14" 
+                                       TextColor="#10B981"/>
+                            </Grid>
+
+                            <!-- Device Info -->
+                            <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                                <Label Text="Device Info:" 
+                                       FontSize="13" 
+                                       TextColor="#9CA3AF"/>
+                                <Label x:Name="DeviceInfoText"
+                                       Text="Not configured" 
+                                       FontSize="13" 
+                                       TextColor="#6B7280"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Pages.FoodMenuPageNew"
+             xmlns:views="clr-namespace:POS_in_NET.Views"
+             xmlns:controls="clr-namespace:POS_in_NET.Controls"
+             Title="Food Menu Management"
+             BackgroundColor="#F8FAFC">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <!-- Top Bar -->
+        <views:TopBar x:Name="TopBar" Grid.Row="0" />
+        
+        <!-- Toast Notification Overlay -->
+        <controls:ToastNotification x:Name="ToastNotification" 
+                                   Grid.RowSpan="3"
+                                   ZIndex="2000"
+                                   InputTransparent="True"/>
+        
+        <!-- Dialogs (Hidden by default) -->
+        <views:AddMenuItemDialog x:Name="AddItemDialog" Grid.RowSpan="3" IsVisible="False" ZIndex="1000" />
+        <views:AddCategoryDialog x:Name="AddCategoryDialogView" Grid.RowSpan="3" IsVisible="False" ZIndex="1000" />
+        <views:AddSubCategoryDialog x:Name="AddSubCategoryDialogView" Grid.RowSpan="3" IsVisible="False" ZIndex="1000" />
+        <views:AddNoteDialog x:Name="AddNoteDialogView" Grid.RowSpan="3" IsVisible="False" ZIndex="1000" />
+        
+        <!-- Tab Bar -->
+        <Frame Grid.Row="1" 
+               BackgroundColor="#F8FAFC"
+               Padding="16"
+               Margin="0,0,0,2"
+               CornerRadius="0"
+               HasShadow="False"
+               BorderColor="#E2E8F0">
+            <HorizontalStackLayout Spacing="12">
+                <!-- Items Tab Button -->
+                <Button x:Name="ItemsButton"
+                        Text="MENU ITEMS"
+                        Clicked="OnItemsButtonClicked"
+                        BackgroundColor="#6366F1"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="13"
+                        CornerRadius="6"
+                        Padding="24,14"
+                        HeightRequest="44"
+                        MinimumWidthRequest="140" />
+
+                <!-- Categories Tab Button -->
+                <Button x:Name="CategoriesButton"
+                        Text="CATEGORIES"
+                        Clicked="OnCategoriesButtonClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="#64748B"
+                        FontAttributes="None"
+                        FontSize="13"
+                        CornerRadius="6"
+                        Padding="24,14"
+                        HeightRequest="44"
+                        BorderColor="#CBD5E1"
+                        BorderWidth="1"
+                        MinimumWidthRequest="140" />
+
+                <!-- Sub-Categories Tab Button -->
+                <Button x:Name="SubCategoriesButton"
+                        Text="SUB-CATEGORIES"
+                        Clicked="OnSubCategoriesButtonClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="#64748B"
+                        FontAttributes="None"
+                        FontSize="13"
+                        CornerRadius="6"
+                        Padding="24,14"
+                        HeightRequest="44"
+                        BorderColor="#CBD5E1"
+                        BorderWidth="1"
+                        MinimumWidthRequest="160" />
+
+                <!-- Notes Tab Button -->
+                <Button x:Name="NotesButton"
+                        Text="NOTES"
+                        Clicked="OnNotesButtonClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="#64748B"
+                        FontAttributes="None"
+                        FontSize="13"
+                        CornerRadius="6"
+                        Padding="24,14"
+                        HeightRequest="44"
+                        BorderColor="#CBD5E1"
+                        BorderWidth="1"
+                        MinimumWidthRequest="120" />
+
+                <!-- Meal Deals Tab Button -->
+                <Button x:Name="MealDealsButton"
+                        Text="MEAL DEALS"
+                        Clicked="OnMealDealsButtonClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="#64748B"
+                        FontAttributes="None"
+                        FontSize="13"
+                        CornerRadius="6"
+                        Padding="24,14"
+                        HeightRequest="44"
+                        BorderColor="#CBD5E1"
+                        BorderWidth="1"
+                        MinimumWidthRequest="140" />
+            </HorizontalStackLayout>
+        </Frame>
+
+        <!-- Content Area -->
+        <ScrollView Grid.Row="2">
+            <Grid Padding="20">
+                <!-- Items Content -->
+                <VerticalStackLayout x:Name="ItemsContent" IsVisible="True" Spacing="15">
+                    <Label Text="Menu Items"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#1E293B" />
+                    
+                    <Button Text="+ Add New Item"
+                            BackgroundColor="#10B981"
+                            TextColor="White"
+                            FontAttributes="Bold"
+                            CornerRadius="8"
+                            Padding="15"
+                            HorizontalOptions="End"
+                            Clicked="OnAddItemClicked" />
+
+                    <CollectionView x:Name="ItemsCollectionView" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,0,0,10"
+                                       Padding="15"
+                                       BackgroundColor="White"
+                                       BorderColor="#E2E8F0"
+                                       CornerRadius="12"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="10">
+                                        <VerticalStackLayout Grid.Column="0">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#1E293B" />
+                                            <Label Text="{Binding Description}"
+                                                   FontSize="14"
+                                                   TextColor="#64748B" />
+                                        </VerticalStackLayout>
+                                        
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Price, StringFormat='£{0:F2}'}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#10B981"
+                                               VerticalOptions="Center" />
+                                        
+                                        <Button Grid.Column="2"
+                                                Text="✏️"
+                                                BackgroundColor="#3B82F6"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Padding="10"
+                                                Clicked="OnEditItemClicked"
+                                                CommandParameter="{Binding .}" />
+                                        
+                                        <Button Grid.Column="3"
+                                                Text="🗑️"
+                                                BackgroundColor="#EF4444"
+                                                TextColor="White"
+                                                CornerRadius="8"
+                                                Padding="10"
+                                                Clicked="OnDeleteItemClicked"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- Categories Content -->
+                <VerticalStackLayout x:Name="CategoriesContent" IsVisible="False" Spacing="15">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0"
+                               Text="Categories"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#1E293B"
+                               VerticalOptions="Center" />
+                        
+                        <Button Grid.Column="1"
+                                Text="+ Add New Category"
+                                BackgroundColor="#10B981"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                Padding="20,12"
+                                Clicked="OnAddCategoryClicked" />
+                    </Grid>
+                    
+                    <CollectionView x:Name="CategoriesCollectionView" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,0,0,10"
+                                       Padding="15"
+                                       BackgroundColor="White"
+                                       BorderColor="#E2E8F0"
+                                       CornerRadius="12"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto" ColumnSpacing="10">
+                                        <!-- Drag Handle -->
+                                        <Label Grid.Column="0"
+                                               Text="☰"
+                                               FontSize="24"
+                                               TextColor="#94A3B8"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"
+                                               WidthRequest="30" />
+                                        
+                                        <!-- Move Up/Down Buttons -->
+                                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                            <Button Text="▲"
+                                                    BackgroundColor="#10B981"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="4"
+                                                    Padding="8,2"
+                                                    WidthRequest="32"
+                                                    HeightRequest="28"
+                                                    Clicked="OnMoveCategoryUpClicked"
+                                                    CommandParameter="{Binding .}" />
+                                            <Button Text="▼"
+                                                    BackgroundColor="#10B981"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="4"
+                                                    Padding="8,2"
+                                                    WidthRequest="32"
+                                                    HeightRequest="28"
+                                                    Clicked="OnMoveCategoryDownClicked"
+                                                    CommandParameter="{Binding .}" />
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Category Name -->
+                                        <VerticalStackLayout Grid.Column="2" Spacing="4" VerticalOptions="Center">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#1E293B" />
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Active Badge -->
+                                        <Frame Grid.Column="3"
+                                               Padding="8,4"
+                                               CornerRadius="8"
+                                               BackgroundColor="{Binding Active, Converter={StaticResource BoolToColorConverter}}"
+                                               HasShadow="False"
+                                               VerticalOptions="Center">
+                                            <Label Text="{Binding Active, StringFormat='{0}'}"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold"
+                                                   TextColor="White" />
+                                        </Frame>
+                                        
+                                        <!-- Edit Button -->
+                                        <Button Grid.Column="4"
+                                                Text="Edit"
+                                                BackgroundColor="#3B82F6"
+                                                TextColor="White"
+                                                FontSize="13"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Clicked="OnEditCategoryClicked"
+                                                CommandParameter="{Binding .}" />
+                                        
+                                        <!-- Delete Button -->
+                                        <Button Grid.Column="5"
+                                                Text="Delete"
+                                                BackgroundColor="#EF4444"
+                                                TextColor="White"
+                                                FontSize="13"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Clicked="OnDeleteCategoryClicked"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- Sub-Categories Content -->
+                <VerticalStackLayout x:Name="SubCategoriesContent" IsVisible="False" Spacing="15">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0"
+                               Text="Sub-Categories"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#1E293B"
+                               VerticalOptions="Center" />
+                        
+                        <Button Grid.Column="1"
+                                Text="+ Add New Sub-Category"
+                                BackgroundColor="#10B981"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                Padding="20,12"
+                                Clicked="OnAddSubCategoryClicked" />
+                    </Grid>
+                    
+                    <CollectionView x:Name="SubCategoriesCollectionView" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,0,0,10"
+                                       Padding="15"
+                                       BackgroundColor="White"
+                                       BorderColor="#E2E8F0"
+                                       CornerRadius="12"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto" ColumnSpacing="10">
+                                        <!-- Drag Handle -->
+                                        <Label Grid.Column="0"
+                                               Text="☰"
+                                               FontSize="24"
+                                               TextColor="#94A3B8"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"
+                                               WidthRequest="30" />
+                                        
+                                        <!-- Move Up/Down Buttons -->
+                                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                            <Button Text="▲"
+                                                    BackgroundColor="#8B5CF6"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="4"
+                                                    Padding="8,2"
+                                                    WidthRequest="32"
+                                                    HeightRequest="28"
+                                                    Clicked="OnMoveSubCategoryUpClicked"
+                                                    CommandParameter="{Binding .}" />
+                                            <Button Text="▼"
+                                                    BackgroundColor="#8B5CF6"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    CornerRadius="4"
+                                                    Padding="8,2"
+                                                    WidthRequest="32"
+                                                    HeightRequest="28"
+                                                    Clicked="OnMoveSubCategoryDownClicked"
+                                                    CommandParameter="{Binding .}" />
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Sub-Category Info -->
+                                        <VerticalStackLayout Grid.Column="2" Spacing="4" VerticalOptions="Center">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#1E293B" />
+                                            <HorizontalStackLayout Spacing="6">
+                                                <Label Text="📁"
+                                                       FontSize="12"
+                                                       VerticalOptions="Center" />
+                                                <Label Text="{Binding ParentCategoryName}"
+                                                       FontSize="11"
+                                                       TextColor="#64748B"
+                                                       VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Active Badge -->
+                                        <Frame Grid.Column="3"
+                                               Padding="8,4"
+                                               CornerRadius="8"
+                                               BackgroundColor="{Binding Active, Converter={StaticResource BoolToColorConverter}}"
+                                               HasShadow="False"
+                                               VerticalOptions="Center">
+                                            <Label Text="{Binding Active, StringFormat='{0}'}"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold"
+                                                   TextColor="White" />
+                                        </Frame>
+                                        
+                                        <!-- Edit Button -->
+                                        <Button Grid.Column="4"
+                                                Text="Edit"
+                                                BackgroundColor="#3B82F6"
+                                                TextColor="White"
+                                                FontSize="13"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Clicked="OnEditSubCategoryClicked"
+                                                CommandParameter="{Binding .}" />
+                                        
+                                        <!-- Delete Button -->
+                                        <Button Grid.Column="5"
+                                                Text="Delete"
+                                                BackgroundColor="#EF4444"
+                                                TextColor="White"
+                                                FontSize="13"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Clicked="OnDeleteSubCategoryClicked"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- Notes Content -->
+                <VerticalStackLayout x:Name="NotesContent" IsVisible="False" Spacing="15">
+                    <!-- Header with Add Button -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0"
+                               Text="Kitchen Notes &amp; Notifications"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#1E293B"
+                               VerticalOptions="Center" />
+                        
+                        <Button Grid.Column="1"
+                                Text="+ Add New Note"
+                                BackgroundColor="#F59E0B"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                Padding="20,12"
+                                Clicked="OnAddNoteClicked" />
+                    </Grid>
+
+                    <!-- Filter Bar -->
+                    <Frame Padding="15" 
+                           BackgroundColor="#F8FAFC" 
+                           BorderColor="#E2E8F0" 
+                           CornerRadius="12"
+                           HasShadow="False">
+                        <Grid ColumnDefinitions="*,*,Auto" ColumnSpacing="10">
+                            <Picker Grid.Column="0"
+                                    x:Name="CategoryFilterPicker"
+                                    Title="Filter by Category"
+                                    FontSize="14"
+                                    TextColor="#1E293B"
+                                    BackgroundColor="White"
+                                    SelectedIndexChanged="OnCategoryFilterChanged">
+                                <Picker.Items>
+                                    <x:String>All Categories</x:String>
+                                    <x:String>Cooking</x:String>
+                                    <x:String>Allergy</x:String>
+                                    <x:String>Special Request</x:String>
+                                    <x:String>Dietary</x:String>
+                                    <x:String>Temperature</x:String>
+                                    <x:String>Portion</x:String>
+                                    <x:String>Other</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            
+                            <Picker Grid.Column="1"
+                                    x:Name="PriorityFilterPicker"
+                                    Title="Filter by Priority"
+                                    FontSize="14"
+                                    TextColor="#1E293B"
+                                    BackgroundColor="White"
+                                    SelectedIndexChanged="OnPriorityFilterChanged">
+                                <Picker.Items>
+                                    <x:String>All Priorities</x:String>
+                                    <x:String>Urgent</x:String>
+                                    <x:String>High</x:String>
+                                    <x:String>Normal</x:String>
+                                    <x:String>Low</x:String>
+                                </Picker.Items>
+                            </Picker>
+
+                            <Button Grid.Column="2"
+                                    Text="Clear"
+                                    BackgroundColor="#64748B"
+                                    TextColor="White"
+                                    FontSize="13"
+                                    CornerRadius="8"
+                                    Padding="20,8"
+                                    Clicked="OnClearFiltersClicked"
+                                    VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Notes Stats Summary -->
+                    <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                        <Frame Grid.Column="0" Padding="12" BackgroundColor="#FEF2F2" BorderColor="#FCA5A5" CornerRadius="10" HasShadow="False">
+                            <VerticalStackLayout Spacing="4">
+                                <Label x:Name="UrgentCountLabel" Text="0" FontSize="24" FontAttributes="Bold" TextColor="#DC2626" HorizontalOptions="Center" />
+                                <Label Text="Urgent" FontSize="11" TextColor="#7F1D1D" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                        
+                        <Frame Grid.Column="1" Padding="12" BackgroundColor="#FFF7ED" BorderColor="#FDBA74" CornerRadius="10" HasShadow="False">
+                            <VerticalStackLayout Spacing="4">
+                                <Label x:Name="HighCountLabel" Text="0" FontSize="24" FontAttributes="Bold" TextColor="#EA580C" HorizontalOptions="Center" />
+                                <Label Text="High" FontSize="11" TextColor="#7C2D12" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                        
+                        <Frame Grid.Column="2" Padding="12" BackgroundColor="#EFF6FF" BorderColor="#93C5FD" CornerRadius="10" HasShadow="False">
+                            <VerticalStackLayout Spacing="4">
+                                <Label x:Name="NormalCountLabel" Text="0" FontSize="24" FontAttributes="Bold" TextColor="#2563EB" HorizontalOptions="Center" />
+                                <Label Text="Normal" FontSize="11" TextColor="#1E3A8A" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                        
+                        <Frame Grid.Column="3" Padding="12" BackgroundColor="#F9FAFB" BorderColor="#D1D5DB" CornerRadius="10" HasShadow="False">
+                            <VerticalStackLayout Spacing="4">
+                                <Label x:Name="LowCountLabel" Text="0" FontSize="24" FontAttributes="Bold" TextColor="#4B5563" HorizontalOptions="Center" />
+                                <Label Text="Low" FontSize="11" TextColor="#1F2937" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                    
+                    <!-- Notes Collection -->
+                    <CollectionView x:Name="NotesCollectionView" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,0,0,12"
+                                       Padding="0"
+                                       BackgroundColor="White"
+                                       BorderColor="{Binding Color}"
+                                       CornerRadius="12"
+                                       HasShadow="True">
+                                    <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="0">
+                                        <!-- Header Bar with Priority -->
+                                        <Grid Grid.Row="0" 
+                                              BackgroundColor="{Binding Color}"
+                                              Padding="15,10"
+                                              ColumnDefinitions="Auto,*,Auto">
+                                            <Label Grid.Column="0"
+                                                   Text="{Binding Priority, StringFormat='{0:U}'}"
+                                                   FontSize="12"
+                                                   FontAttributes="Bold"
+                                                   TextColor="White"
+                                                   VerticalOptions="Center" />
+                                            
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Category, StringFormat='📋 {0}'}"
+                                                   FontSize="12"
+                                                   TextColor="White"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center" />
+                                            
+                                            <Frame Grid.Column="2"
+                                                   Padding="8,4"
+                                                   CornerRadius="12"
+                                                   HasShadow="False"
+                                                   BackgroundColor="#FFFFFF30">
+                                                <Label Text="{Binding Active, StringFormat='{0}'}"
+                                                       FontSize="10"
+                                                       FontAttributes="Bold"
+                                                       TextColor="White" />
+                                            </Frame>
+                                        </Grid>
+
+                                        <!-- Main Content -->
+                                        <VerticalStackLayout Grid.Row="1" Padding="15" Spacing="8">
+                                            <Label Text="{Binding NoteText}"
+                                                   FontSize="16"
+                                                   TextColor="#1E293B"
+                                                   LineBreakMode="WordWrap" />
+                                            
+                                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                                <Label Grid.Column="0"
+                                                       Text="{Binding DisplayOrder, StringFormat='Order: {0}'}"
+                                                       FontSize="12"
+                                                       TextColor="#64748B"
+                                                       VerticalOptions="Center" />
+                                                
+                                                <Label Grid.Column="2"
+                                                       Text="{Binding UpdatedAt, StringFormat='Updated: {0:MMM dd, hh:mm tt}'}"
+                                                       FontSize="11"
+                                                       TextColor="#94A3B8"
+                                                       HorizontalOptions="End"
+                                                       VerticalOptions="Center" />
+                                            </Grid>
+                                        </VerticalStackLayout>
+
+                                        <!-- Action Buttons -->
+                                        <Grid Grid.Row="2"
+                                              Padding="15,10"
+                                              BackgroundColor="#F8FAFC"
+                                              ColumnDefinitions="*,Auto,Auto,Auto"
+                                              ColumnSpacing="8">
+                                            <Button Grid.Column="0"
+                                                    Text="{Binding Active, StringFormat='{0}'}"
+                                                    BackgroundColor="#10B981"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    FontAttributes="Bold"
+                                                    CornerRadius="8"
+                                                    Padding="12,6"
+                                                    Clicked="OnToggleNoteActiveClicked"
+                                                    CommandParameter="{Binding .}"
+                                                    HorizontalOptions="Start" />
+                                            
+                                            <Button Grid.Column="1"
+                                                    Text="📝"
+                                                    BackgroundColor="#3B82F6"
+                                                    TextColor="White"
+                                                    FontSize="16"
+                                                    CornerRadius="8"
+                                                    Padding="12,6"
+                                                    Clicked="OnEditNoteClicked"
+                                                    CommandParameter="{Binding .}" />
+                                            
+                                            <Button Grid.Column="2"
+                                                    Text="📋"
+                                                    BackgroundColor="#8B5CF6"
+                                                    TextColor="White"
+                                                    FontSize="16"
+                                                    CornerRadius="8"
+                                                    Padding="12,6"
+                                                    Clicked="OnDuplicateNoteClicked"
+                                                    CommandParameter="{Binding .}" />
+                                            
+                                            <Button Grid.Column="3"
+                                                    Text="🗑️"
+                                                    BackgroundColor="#EF4444"
+                                                    TextColor="White"
+                                                    FontSize="16"
+                                                    CornerRadius="8"
+                                                    Padding="12,6"
+                                                    Clicked="OnDeleteNoteClicked"
+                                                    CommandParameter="{Binding .}" />
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- Meal Deals Content -->
+                <VerticalStackLayout x:Name="MealDealsContent" IsVisible="False" Spacing="15">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0"
+                               Text="Meal Deals"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#1E293B"
+                               VerticalOptions="Center" />
+                        
+                        <Button Grid.Column="1"
+                                Text="+ Add New Meal Deal"
+                                BackgroundColor="#10B981"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                Padding="20,12"
+                                Clicked="OnAddMealDealClicked" />
+                    </Grid>
+                    
+                    <CollectionView x:Name="MealDealsCollectionView" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Margin="0,0,0,10"
+                                       Padding="15"
+                                       BackgroundColor="White"
+                                       BorderColor="#E2E8F0"
+                                       CornerRadius="12"
+                                       HasShadow="False">
+                                    <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="10">
+                                        <VerticalStackLayout Grid.Column="0">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#1E293B" />
+                                            <Label Text="{Binding Description}"
+                                                   FontSize="14"
+                                                   TextColor="#64748B" />
+                                        </VerticalStackLayout>
+                                        
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Price, StringFormat='£{0:F2}'}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#10B981"
+                                               VerticalOptions="Center" />
+                                        
+                                        <Button Grid.Column="2"
+                                                Text="Edit"
+                                                BackgroundColor="#3B82F6"
+                                                TextColor="White"
+                                                FontSize="13"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Clicked="OnEditMealDealClicked"
+                                                CommandParameter="{Binding .}" />
+                                        
+                                        <Button Grid.Column="3"
+                                                Text="Delete"
+                                                BackgroundColor="#EF4444"
+                                                TextColor="White"
+                                                FontSize="13"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Clicked="OnDeleteMealDealClicked"
+                                                CommandParameter="{Binding .}" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

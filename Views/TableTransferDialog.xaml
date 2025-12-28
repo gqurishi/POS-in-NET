@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.TableTransferDialog"
+             BackgroundColor="Transparent"
+             HorizontalOptions="Fill"
+             VerticalOptions="Fill">
+    
+    <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
+        
+        <!-- Dark Overlay Background -->
+        <BoxView HorizontalOptions="Fill"
+                 VerticalOptions="Fill"
+                 Color="#000000"
+                 Opacity="0.5">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCancelClicked"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        
+        <!-- Dialog Container -->
+        <Frame BackgroundColor="White"
+               BorderColor="#DDDDDD"
+               CornerRadius="10"
+               HasShadow="True"
+               Padding="25"
+               WidthRequest="500"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+            
+            <VerticalStackLayout Spacing="15">
+                
+                <!-- Header Row -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Transfer Table"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#333333"
+                           VerticalOptions="Center"/>
+                    <Button Grid.Column="1"
+                            Text="X"
+                            BackgroundColor="#DD4444"
+                            TextColor="White"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            CornerRadius="20"
+                            Clicked="OnCancelClicked"/>
+                </Grid>
+                
+                <!-- Separator -->
+                <BoxView HeightRequest="1" Color="#EEEEEE"/>
+                
+                <!-- Current Table Info -->
+                <Frame BackgroundColor="#FFF9E6" BorderColor="#FFD700" CornerRadius="8" Padding="12" HasShadow="False">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Label Text="Transfer from:"
+                               FontSize="15"
+                               TextColor="#996600"
+                               VerticalOptions="Center"/>
+                        <Label x:Name="CurrentTableLabel"
+                               Text="Table --"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#CC8800"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+                
+                <!-- Instructions -->
+                <Label Text="Select an empty table:"
+                       FontSize="13"
+                       TextColor="#666666"
+                       HorizontalOptions="Center"/>
+                
+                <!-- Available Tables Grid -->
+                <Frame BackgroundColor="#F8F8F8" BorderColor="#DDDDDD" CornerRadius="8" Padding="10" HasShadow="False">
+                    <ScrollView HeightRequest="180">
+                        <FlexLayout x:Name="TablesContainer"
+                                    Wrap="Wrap"
+                                    JustifyContent="Start"
+                                    AlignItems="Start"
+                                    AlignContent="Start"/>
+                    </ScrollView>
+                </Frame>
+                
+                <!-- No Tables Message -->
+                <Label x:Name="NoTablesMessage"
+                       Text="No empty tables available"
+                       FontSize="14"
+                       TextColor="#CC4444"
+                       HorizontalOptions="Center"
+                       IsVisible="False"/>
+                
+                <!-- Selected Table Display -->
+                <Frame x:Name="SelectedTableFrame"
+                       IsVisible="False"
+                       BackgroundColor="#E8F5E9"
+                       BorderColor="#4CAF50"
+                       CornerRadius="8"
+                       Padding="10"
+                       HasShadow="False">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Label Text="Transfer to:"
+                               FontSize="14"
+                               TextColor="#2E7D32"
+                               VerticalOptions="Center"/>
+                        <Label x:Name="SelectedTableLabel"
+                               Text="Table --"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#1B5E20"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+                
+                <!-- Action Buttons -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Text="Cancel"
+                            BackgroundColor="#E8E8E8"
+                            TextColor="#555555"
+                            FontSize="14"
+                            HeightRequest="45"
+                            CornerRadius="8"
+                            Clicked="OnCancelClicked"/>
+                    <Button x:Name="TransferButton"
+                            Grid.Column="1"
+                            Text="Transfer"
+                            BackgroundColor="#CCCCCC"
+                            TextColor="White"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            HeightRequest="45"
+                            CornerRadius="8"
+                            IsEnabled="False"
+                            Clicked="OnTransferClicked"/>
+                </Grid>
+                
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+    
+</ContentView>

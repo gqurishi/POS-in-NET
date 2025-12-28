@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.AddFloorDialog"
+             BackgroundColor="#80000000"
+             VerticalOptions="Fill"
+             HorizontalOptions="Fill">
+    
+    <Grid VerticalOptions="Center" 
+          HorizontalOptions="Center"
+          Padding="40">
+        <Frame BackgroundColor="White"
+               CornerRadius="16"
+               Padding="35"
+               WidthRequest="500"
+               HasShadow="True"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="25">
+                
+                <!-- Title -->
+                <Label Text="Add New Floor"
+                       FontSize="24"
+                       FontFamily="OpenSansSemibold"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,10" />
+                
+                <!-- Floor Name Input -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Floor Name"
+                           FontSize="14"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="#374151"
+                           HorizontalOptions="Start" />
+                    
+                    <Border BackgroundColor="#F9FAFB"
+                            Stroke="#E5E7EB"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="15">
+                        <Entry x:Name="FloorNameEntry"
+                               FontSize="16"
+                               FontFamily="OpenSansRegular"
+                               TextColor="#1F2937"
+                               PlaceholderColor="#9CA3AF"
+                               Placeholder="e.g., Second Floor"
+                               BackgroundColor="Transparent"
+                               HeightRequest="40" />
+                    </Border>
+                </VerticalStackLayout>
+                
+                <!-- Buttons -->
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="15"
+                      Margin="0,15,0,0">
+                    <Button Grid.Column="0"
+                            x:Name="CancelButton"
+                            Text="Cancel"
+                            BackgroundColor="#F3F4F6"
+                            TextColor="#6B7280"
+                            FontFamily="OpenSansSemibold"
+                            CornerRadius="10"
+                            HeightRequest="48"
+                            FontSize="16"
+                            Clicked="OnCancelClicked" />
+                    
+                    <Button Grid.Column="1"
+                            x:Name="CreateButton"
+                            Text="Create Floor"
+                            BackgroundColor="#3B82F6"
+                            TextColor="White"
+                            FontFamily="OpenSansSemibold"
+                            CornerRadius="10"
+                            HeightRequest="48"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Clicked="OnCreateClicked" />
+                </Grid>
+                
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+    
+</ContentView>

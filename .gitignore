@@ -1,0 +1,75 @@
+# Build outputs
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# .NET MAUI specific
+**/*.app
+**/*.ipa
+**/*.aab
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# User-specific files
+*.csproj.user
+*.vbproj.user
+*.vcxproj.user
+
+# Logs
+*.log
+
+# IDE files
+*.swp
+*.swo
+
+# Mac system files
+Icon?
+._*

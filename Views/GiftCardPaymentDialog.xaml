@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POS_in_NET.Views.GiftCardPaymentDialog"
+             BackgroundColor="#80000000"
+             VerticalOptions="Fill"
+             HorizontalOptions="Fill">
+    
+    <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+        <Border BackgroundColor="White"
+               StrokeThickness="0"
+               Padding="40"
+               WidthRequest="650"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,4" Radius="20" Opacity="0.3"/>
+            </Border.Shadow>
+            
+            <VerticalStackLayout Spacing="18">
+                
+                <!-- Header with Close Button -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="GIFT CARD PAYMENT"
+                           FontSize="28"
+                           FontAttributes="Bold"
+                           TextColor="#111827"
+                           VerticalOptions="Center"/>
+                    <!-- Close Button - Rectangle -->
+                    <Button Grid.Column="1"
+                            Text="CLOSE"
+                            BackgroundColor="#DC2626"
+                            TextColor="White"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            WidthRequest="90"
+                            HeightRequest="45"
+                            CornerRadius="8"
+                            Clicked="OnCancelClicked"/>
+                </Grid>
+                
+                <!-- Gift Card Icon -->
+                <Border BackgroundColor="#F3E8FF"
+                        StrokeThickness="2"
+                        Stroke="#A855F7"
+                        WidthRequest="150"
+                        HeightRequest="80"
+                        HorizontalOptions="Center">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Label Text="GIFT CARD"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#7C3AED"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+                
+                <!-- Divider -->
+                <BoxView HeightRequest="2" Color="#E5E7EB"/>
+                
+                <!-- Amount Due -->
+                <Border BackgroundColor="#FAF5FF" Stroke="#A855F7" StrokeThickness="2" Padding="18">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="AMOUNT DUE:"
+                               FontSize="20"
+                               TextColor="#6B21A8"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                        <Label x:Name="AmountDueLabel"
+                               Grid.Column="1"
+                               Text="£0.00"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#7C3AED"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+                
+                <!-- Gift Card Number Entry -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="GIFT CARD NUMBER"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#6B7280"/>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="15">
+                        <Entry x:Name="GiftCardNumberEntry"
+                               Placeholder="Enter or scan gift card number"
+                               FontSize="16"
+                               HeightRequest="55"
+                               BackgroundColor="#F3F4F6"/>
+                        <Button Grid.Column="1"
+                                Text="CHECK"
+                                BackgroundColor="#7C3AED"
+                                TextColor="White"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                WidthRequest="100"
+                                HeightRequest="55"
+                                Clicked="OnCheckBalanceClicked"/>
+                    </Grid>
+                </VerticalStackLayout>
+                
+                <!-- Gift Card Balance Display -->
+                <Border x:Name="BalanceFrame" 
+                       BackgroundColor="#ECFDF5" 
+                       Stroke="#10B981" 
+                       StrokeThickness="2"
+                       Padding="16"
+                       IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="CARD BALANCE:"
+                               FontSize="18"
+                               TextColor="#047857"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                        <Label x:Name="BalanceLabel"
+                               Grid.Column="1"
+                               Text="£0.00"
+                               FontSize="26"
+                               FontAttributes="Bold"
+                               TextColor="#047857"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+                
+                <!-- Amount to Apply -->
+                <VerticalStackLayout x:Name="ApplyAmountSection" Spacing="8" IsVisible="False">
+                    <Label Text="AMOUNT TO APPLY"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#6B7280"/>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="15">
+                        <Entry x:Name="ApplyAmountEntry"
+                               Placeholder="Amount to use"
+                               Keyboard="Numeric"
+                               FontSize="16"
+                               HeightRequest="55"
+                               BackgroundColor="#F3F4F6"/>
+                        <Button Text="USE FULL"
+                                BackgroundColor="#D1FAE5"
+                                TextColor="#065F46"
+                                FontSize="12"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                WidthRequest="100"
+                                HeightRequest="55"
+                                Clicked="OnUseFullClicked"/>
+                    </Grid>
+                </VerticalStackLayout>
+                
+                <!-- Remaining Balance After -->
+                <Border x:Name="RemainingFrame" 
+                       BackgroundColor="#FEF2F2" 
+                       Stroke="#EF4444" 
+                       StrokeThickness="2"
+                       Padding="12"
+                       IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="REMAINING TO PAY:"
+                               FontSize="16"
+                               TextColor="#DC2626"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                        <Label x:Name="RemainingLabel"
+                               Grid.Column="1"
+                               Text="£0.00"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#DC2626"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+                
+                <!-- Apply Button -->
+                <Button x:Name="ApplyButton"
+                        Text="APPLY GIFT CARD"
+                        BackgroundColor="#7C3AED"
+                        TextColor="White"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        HeightRequest="60"
+                        IsEnabled="False"
+                        Clicked="OnApplyClicked"/>
+                
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+    
+</ContentView>
