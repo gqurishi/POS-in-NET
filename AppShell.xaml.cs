@@ -30,6 +30,9 @@ public partial class AppShell : Shell, INotifyPropertyChanged
 		Routing.RegisterRoute("collection", typeof(CollectionCustomerModal));
 		Routing.RegisterRoute("delivery", typeof(DeliveryCustomerModal));
 		
+		// Register User Dashboard route
+		Routing.RegisterRoute("userdashboard", typeof(UserDashboardPage));
+		
 		// Initialize date/time
 		UpdateDateTime();
 		

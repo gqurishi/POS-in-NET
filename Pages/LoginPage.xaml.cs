@@ -1,4 +1,5 @@
 using POS_in_NET.Services;
+using POS_in_NET.Models;
 
 namespace POS_in_NET.Pages;
 
@@ -101,17 +102,18 @@ public partial class LoginPage : ContentPage
             
             if (result.Success && result.User != null)
             {
-                System.Diagnostics.Debug.WriteLine($"Login successful for user: {result.User.Username}");
+                System.Diagnostics.Debug.WriteLine($"Login successful for user: {result.User.Username}, Role: {result.User.Role}");
                 
-                // INSTANT navigation - no delay!
-                System.Diagnostics.Debug.WriteLine("Navigating to dashboard instantly...");
+                // Role-based navigation
+                string navigationRoute = GetNavigationRouteForRole(result.User.Role);
+                System.Diagnostics.Debug.WriteLine($"Navigating to: {navigationRoute}");
                 
-                // Navigate to dashboard - ensure we're on main thread
+                // Navigate to appropriate dashboard based on user role
                 try
                 {
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
-                        await Shell.Current.GoToAsync("//dashboard", true);
+                        await Shell.Current.GoToAsync(navigationRoute, true);
                     });
                 }
                 catch (Exception navEx)
@@ -120,7 +122,18 @@ public partial class LoginPage : ContentPage
                     // Fallback: Try direct navigation
                     if (Application.Current != null)
                     {
-                        Application.Current.MainPage = new AppShell();
+                        if (result.User.Role == UserRole.User)
+                        {
+                            // For User role, create a simple shell with just user dashboard
+                            var userShell = new AppShell();
+                            Application.Current.MainPage = userShell;
+                            await userShell.GoToAsync("//userdashboard");
+                        }
+                        else
+                        {
+                            // For Admin/Manager, use full shell
+                            Application.Current.MainPage = new AppShell();
+                        }
                     }
                 }
             }
@@ -329,6 +342,20 @@ public partial class LoginPage : ContentPage
             PasswordEntry.Text = currentText + "00";
             UpdatePINDisplay();
         }
+    }
+
+    /// <summary>
+    /// Determines the navigation route based on user role
+    /// </summary>
+    private string GetNavigationRouteForRole(UserRole role)
+    {
+        return role switch
+        {
+            UserRole.User => "//userdashboard",      // Simple 3-button dashboard
+            UserRole.Manager => "//dashboard",       // Full admin dashboard (for now)
+            UserRole.Admin => "//dashboard",         // Full admin dashboard
+            _ => "//dashboard"                       // Default to admin dashboard
+        };
     }
 
     #endregion

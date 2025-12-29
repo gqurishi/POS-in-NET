@@ -273,6 +273,15 @@
             Shell.NavBarIsVisible="False" />
     </FlyoutItem>
 
+    <!-- User Dashboard (Simplified) -->
+    <FlyoutItem Title="User Dashboard" FlyoutIcon="👤">
+        <ShellContent
+            Title="User Dashboard" 
+            ContentTemplate="{DataTemplate pages:UserDashboardPage}"
+            Route="userdashboard"
+            Shell.NavBarIsVisible="False" />
+    </FlyoutItem>
+
     <FlyoutItem Title="Restaurant" FlyoutIcon="🏪">
         <ShellContent
             Title="Restaurant Overview"
